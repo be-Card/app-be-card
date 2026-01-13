@@ -1,0 +1,425 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: $background-dark;
+  color: $text-white;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px 19px;
+  border-bottom: 1px solid $border-dark;
+  background: $background-dark;
+  min-height: 79px;
+
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 27px;
+    color: $text-white;
+    margin: 0;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  gap: 20px;
+  flex: 1;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: $text-white;
+  margin: 0;
+}
+
+.sectionDescription {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 17px;
+  color: $text-white;
+  margin: 0;
+}
+
+.divider {
+  height: 1px;
+  background: $border-dark;
+  width: 100%;
+}
+
+// Configuración Regional
+.regionalSettings {
+  display: flex;
+  gap: 20px;
+  
+  .dropdown {
+    flex: 1;
+  }
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  color: $text-white;
+  
+  .required {
+    color: $accent-yellow;
+  }
+}
+
+.selectWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1px solid $border-dark;
+  border-radius: 100px;
+  background: $border-dark;
+  color: $text-white;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 15px;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.07);
+  
+  &:focus {
+    outline: none;
+    border-color: $accent-orange;
+  }
+  
+  option {
+    background: $background-card;
+    color: $text-white;
+  }
+}
+
+.selectIcon {
+  position: absolute;
+  right: 14px;
+  color: $text-white;
+  pointer-events: none;
+  transform: rotate(90deg);
+}
+
+// Notificaciones
+.notificationsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.notificationItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+.notificationInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.notificationTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  color: $text-white;
+  margin: 0;
+}
+
+.notificationDescription {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 17px;
+  color: $text-white;
+  margin: 0;
+}
+
+// Toggle Switch
+.toggle {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background: $border-dark;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 5px 3px;
+  
+  &.active {
+    background: $accent-orange;
+    
+    .toggleSlider {
+      transform: translateX(15px);
+    }
+  }
+}
+
+.toggleSlider {
+  width: 10px;
+  height: 10px;
+  background: $background-dark;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+
+// Sesiones Activas
+.subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.subsectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  color: $text-white;
+  margin: 0;
+}
+
+.subsectionDescription {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 17px;
+  color: $text-white;
+  margin: 0;
+}
+
+.sessionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sessionCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 19px;
+  border: 1px solid $border-dark;
+  border-radius: 10px;
+  background: $background-card;
+}
+
+.sessionInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sessionDevice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.deviceIcon {
+  color: $text-white;
+  flex-shrink: 0;
+}
+
+.sessionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  color: $text-white;
+  margin: 0;
+}
+
+.sessionLocation {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 17px;
+  color: $text-white;
+  margin: 0;
+}
+
+.sessionStatus {
+  display: flex;
+  align-items: center;
+}
+
+.onlineStatus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: 1px solid $accent-green;
+  border-radius: 100px;
+  background: rgba(41, 157, 88, 0.1);
+  color: $accent-green;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+}
+
+.closeSessionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: 1px solid $text-white;
+  border-radius: 10px;
+  background: transparent;
+  color: $text-white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Formulario de Contraseña
+.passwordForm {
+  display: flex;
+  gap: 20px;
+}
+
+.inputGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1px solid $border-dark;
+  border-radius: 100px;
+  background: $border-dark;
+  color: $text-white;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 15px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.07);
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $accent-orange;
+  }
+}
+
+.updatePasswordWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.updatePasswordBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 19px;
+  border: 1px solid $text-white;
+  border-radius: 10px;
+  background: transparent;
+  color: $text-white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .content {
+    padding: 15px 20px;
+  }
+  
+  .regionalSettings {
+    flex-direction: column;
+  }
+  
+  .passwordForm {
+    flex-direction: column;
+  }
+  
+  .sessionCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .updatePasswordWrapper {
+    justify-content: stretch;
+    
+    .updatePasswordBtn {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 15px 20px;
+    
+    .title {
+      font-size: 20px;
+    }
+  }
+  
+  .sectionTitle {
+    font-size: 20px;
+  }
+}

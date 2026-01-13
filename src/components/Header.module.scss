@@ -1,0 +1,511 @@
+// CSS Variables for dark theme consistency
+:root {
+  --color-background: #0f0f0f;
+  --color-surface: #1f1f1f;
+  --color-border: #333333;
+  --color-border-light: #2a2a2a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-text-muted: #666666;
+  --color-accent: #f8d02d;
+  --gradient-primary: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px 19px;
+  background: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-family: var(--font-family);
+  height: 79px;
+  box-sizing: border-box;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.mobileMenuButton {
+  display: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--color-border-light);
+    transform: translateY(-1px);
+  }
+}
+
+.searchContainer {
+  position: relative;
+  max-width: 400px;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  z-index: 1;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 11px 12px 11px 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 14px;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(248, 208, 45, 0.2);
+  }
+
+  &::placeholder {
+    color: var(--color-text-muted);
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notificationButton {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--color-surface);
+    transform: translateY(-1px);
+  }
+}
+
+.notificationBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 10px;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Notifications Dropdown
+.notificationContainer {
+  position: relative;
+}
+
+.notificationsDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  min-width: 360px;
+  max-width: 400px;
+  z-index: 1001;
+  overflow: hidden;
+  animation: slideDown 0.2s ease-out;
+}
+
+.notificationsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: var(--color-surface);
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+}
+
+.notificationCount {
+  background: #ef4444;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  min-width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificationsDivider {
+  height: 1px;
+  background: var(--color-border);
+}
+
+.notificationsList {
+  max-height: 400px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+
+    &:hover {
+      background: var(--color-text-muted);
+    }
+  }
+}
+
+.notificationItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  transition: background 0.2s ease;
+  border-bottom: 1px solid var(--color-border-light);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: var(--color-border-light);
+  }
+}
+
+.notificationIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  flex-shrink: 0;
+
+  .alertIcon {
+    color: #ef4444;
+  }
+}
+
+.notificationContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notificationTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notificationText {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notificationTime {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin: 0;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.viewAllButton {
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+
+  &:hover {
+    background: var(--color-border-light);
+  }
+}
+
+.userProfile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--color-surface);
+    transform: translateY(-1px);
+  }
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.userRole {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.2;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-background);
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.avatarText {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-background);
+}
+
+// User Menu Dropdown
+.userMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  min-width: 220px;
+  z-index: 1001;
+  overflow: hidden;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.userMenuHeader {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.userMenuInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.userMenuName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.userMenuEmail {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.userMenuDivider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 8px 0;
+}
+
+.userMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+
+  &:hover {
+    background: var(--color-border-light);
+  }
+
+  &.logoutItem {
+    color: #ef4444;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+.userMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: transparent;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 16px;
+    height: auto;
+  }
+
+  .mobileMenuButton {
+    display: flex;
+  }
+
+  .left {
+    gap: 16px;
+  }
+
+  .right {
+    gap: 16px;
+  }
+
+  .searchContainer {
+    max-width: 200px;
+  }
+
+  .userInfo {
+    display: none;
+  }
+
+  .userProfile {
+    gap: 0;
+    padding: 4px;
+  }
+
+  .userMenu {
+    right: -8px;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 10px 12px;
+  }
+
+  .left {
+    gap: 12px;
+  }
+
+  .right {
+    gap: 12px;
+  }
+
+  .searchContainer {
+    max-width: 150px;
+  }
+
+  .searchInput {
+    padding: 8px 8px 8px 32px;
+    font-size: 13px;
+  }
+
+  .searchIcon {
+    left: 8px;
+  }
+
+  .userMenu {
+    right: -12px;
+    min-width: 180px;
+  }
+}

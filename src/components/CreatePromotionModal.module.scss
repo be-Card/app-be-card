@@ -1,0 +1,455 @@
+// Modal Overlay
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.35); // #00000059
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+// Modal Content
+.modalContent {
+  background-color: #1f1f1f; // Grafito
+  border: 1px solid #333333; // Gris oscuro
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+// Modal Header
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 0 24px;
+  border-bottom: 1px solid #333333;
+  margin-bottom: 24px;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #888888;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #333333;
+  }
+}
+
+// Modal Form
+.modalForm {
+  padding: 0 24px 24px 24px;
+}
+
+// Field Groups
+.fieldGroup {
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.required {
+  color: #ff6b6b;
+}
+
+// Input Fields
+.fieldInput {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #333333;
+  border: 1px solid #444444;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+
+  &::placeholder {
+    color: #888888;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #ffa500;
+    box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.1);
+  }
+
+  &.error {
+    border-color: #ff6b6b;
+  }
+}
+
+// Select Field
+.fieldSelect {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #333333;
+  border: 1px solid #444444;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #ffa500;
+    box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.1);
+  }
+
+  &.error {
+    border-color: #ff6b6b;
+  }
+
+  option {
+    background-color: #333333;
+    color: #ffffff;
+  }
+}
+
+// Discount Container
+.discountContainer {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.discountInput {
+  flex: 1;
+  min-width: 120px;
+}
+
+.quickDiscounts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.quickDiscountBtn {
+  padding: 8px 12px;
+  background-color: #444444;
+  border: 1px solid #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 44px;
+
+  &:hover {
+    background-color: #555555;
+    border-color: #666666;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, #ffa500 0%, #ffcc00 100%);
+    border-color: #ffa500;
+    color: #000000;
+  }
+}
+
+// Days Container
+.daysContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.dayCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #2a2a2a;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+}
+
+.checkboxCustom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #555555;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.2s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 4px;
+    height: 8px;
+    border: solid #000000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  input[type="checkbox"]:checked + & {
+    background: linear-gradient(135deg, #ffa500 0%, #ffcc00 100%);
+    border-color: #ffa500;
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.dayLabel {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+// Time Container
+.timeContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.timeInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.timeIcon {
+  position: absolute;
+  left: 12px;
+  color: #888888;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.timeInput {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  background-color: #333333;
+  border: 1px solid #444444;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #ffa500;
+    box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.1);
+  }
+
+  // Custom time input styling
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+  }
+}
+
+// Error Messages
+.errorMessage {
+  display: block;
+  color: #ff6b6b;
+  font-size: 12px;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+// Modal Actions
+.modalActions {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #333333;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #ffa500 0%, #ffcc00 100%);
+  border: none;
+  border-radius: 8px;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  min-width: 160px;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.secondaryButton {
+  background: transparent;
+  border: 1px solid #333333;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  min-width: 160px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #2a2a2a;
+  }
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 0 24px 24px 24px;
+}
+
+.detailItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  background: #171717;
+}
+
+.detailIcon {
+  color: #888888;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.detailMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.detailLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.detailValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  word-break: break-word;
+}
+
+.modalFooter {
+  border-top: 1px solid #333333;
+  padding: 16px 24px 24px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .modalContent {
+    margin: 10px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .modalHeader {
+    padding: 20px 20px 0 20px;
+  }
+
+  .modalForm {
+    padding: 0 20px 20px 20px;
+  }
+
+  .discountContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .quickDiscounts {
+    justify-content: flex-start;
+  }
+
+  .timeContainer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .daysContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .modalTitle {
+    font-size: 18px;
+  }
+
+  .daysContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .quickDiscounts {
+    grid-template-columns: repeat(4, 1fr);
+    display: grid;
+  }
+}

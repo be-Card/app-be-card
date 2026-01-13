@@ -1,0 +1,188 @@
+// CSS Variables for consistent theming
+:root {
+  --sidebar-background: #171717;
+  --sidebar-surface: #1f1f1f;
+  --sidebar-border: #333333;
+  --sidebar-text-primary: #ffffff;
+  --sidebar-text-secondary: #b3b3b3;
+  --sidebar-text-muted: #666666;
+  --sidebar-accent: #f8d02d;
+  --sidebar-gradient: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+  --sidebar-hover: rgba(255, 255, 255, 0.05);
+  --sidebar-active: rgba(248, 208, 45, 0.1);
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 280px;
+  background: var(--sidebar-background);
+  color: var(--sidebar-text-primary);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+
+  &.collapsed {
+    width: 80px;
+  }
+}
+
+.header {
+  padding: 24px 20px;
+  border-bottom: 1px solid var(--sidebar-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.logoText {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--sidebar-text-primary);
+  white-space: nowrap;
+}
+
+.toggleButton {
+  background: var(--sidebar-surface);
+  border: 1px solid var(--sidebar-border);
+  color: var(--sidebar-text-primary);
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: var(--sidebar-hover);
+    transform: translateY(-1px);
+  }
+}
+
+.navigation {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navItem {
+  margin-bottom: 4px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: var(--sidebar-text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  position: relative;
+
+  &:hover {
+    background: var(--sidebar-hover);
+    color: var(--sidebar-text-primary);
+    transform: translateX(2px);
+  }
+
+  &.active {
+    background: var(--sidebar-active);
+    color: var(--sidebar-accent);
+    border-right: 3px solid var(--sidebar-accent);
+
+    .navIcon {
+      color: var(--sidebar-accent);
+    }
+  }
+}
+
+.navIcon {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.navLabel {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.footer {
+  padding: 20px;
+  border-top: 1px solid var(--sidebar-border);
+}
+
+.systemStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.statusText {
+  font-size: 12px;
+  color: var(--sidebar-text-muted);
+  white-space: nowrap;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+
+    &.collapsed {
+      transform: translateX(-100%);
+    }
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}

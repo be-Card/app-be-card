@@ -1,0 +1,125 @@
+// DateInput.module.scss
+.dateInputContainer {
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #2a2a2a;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:focus-within {
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+  }
+
+  &.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  color: #888;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dateInput {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  letter-spacing: 0.5px;
+
+  &::placeholder {
+    color: #888;
+    font-style: italic;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &.inputError {
+    color: #ef4444;
+  }
+
+  // Ocultar spinner de número en algunos navegadores
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
+}
+
+.errorText {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #ef4444;
+  font-family: 'Inter', sans-serif;
+}
+
+// Estados de hover
+.inputWrapper:hover:not(.error):not(:focus-within) {
+  border-color: #555;
+}
+
+// Animaciones suaves
+.dateInput {
+  transition: color 0.2s ease;
+}
+
+.inputIcon {
+  transition: color 0.2s ease;
+}
+
+.inputWrapper:focus-within .inputIcon {
+  color: #ff6b35;
+}
+
+.inputWrapper.error .inputIcon {
+  color: #ef4444;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .dateInput {
+    font-size: 16px; // Evitar zoom en iOS
+    padding: 14px 16px 14px 40px;
+  }
+  
+  .label {
+    font-size: 13px;
+  }
+  
+  .errorText {
+    font-size: 11px;
+  }
+}

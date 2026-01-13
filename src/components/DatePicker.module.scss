@@ -1,0 +1,454 @@
+// Variables CSS para mantener coherencia con la aplicación
+:root {
+  --color-background: #0f0f0f;
+  --color-surface: #1f1f1f;
+  --color-surface-dark: #121212;
+  --color-border: #333333;
+  --color-border-light: #171717;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-accent: #f9d12f;
+  --color-accent-dark: #121212;
+  --gradient-primary: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+}
+
+.datePickerContainer {
+  position: relative;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  font-family: 'Inter', sans-serif;
+
+  .required {
+    color: var(--color-accent);
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 9px 14px;
+  border: 1px solid var(--color-border-light);
+  border-radius: 100px;
+  background: var(--color-border-light);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.07);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-border);
+  }
+
+  &.focused {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(249, 209, 47, 0.2);
+  }
+
+  &.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
+  }
+}
+
+.inputIcon {
+  color: var(--color-text-muted);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.dateInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+
+  &::placeholder {
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &.inputError {
+    color: #ef4444;
+  }
+}
+
+.calendarButton {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.calendarDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  margin-top: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendarHeader {
+  padding: 16px;
+  background: var(--color-surface-dark);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.monthYearControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.monthYearDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.monthName {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+.yearControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.yearButton {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(.disabled) {
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &.disabled {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      background: none;
+      color: var(--color-text-muted);
+    }
+  }
+}
+
+.yearName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  min-width: 40px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.calendarGrid {
+  padding: 16px;
+}
+
+.weekDaysHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.weekDay {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  padding: 8px 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.emptyDay {
+  height: 36px;
+}
+
+.calendarDay {
+  height: 36px;
+  border: none;
+  background: none;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+
+  &:hover:not(.disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-primary);
+  }
+
+  &.selected {
+    background: var(--gradient-primary);
+    color: var(--color-accent-dark);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(240, 111, 38, 0.3);
+  }
+
+  &.today {
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  &.today.selected {
+    border: 2px solid var(--color-accent-dark);
+  }
+
+  &.disabled {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      background: none;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .calendarDropdown {
+    left: -16px;
+    right: -16px;
+  }
+
+  .calendarHeader {
+    padding: 12px;
+  }
+
+  .calendarGrid {
+    padding: 12px;
+  }
+
+  .calendarDay {
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .monthName {
+    font-size: 14px;
+  }
+
+  .yearName {
+    font-size: 13px;
+  }
+}
+
+// Estados de error
+.errorMessage {
+  font-size: 12px;
+  font-weight: 400;
+  color: #ef4444;
+  margin-top: 4px;
+  display: block;
+  font-family: 'Inter', sans-serif;
+}
+
+// Nuevos estilos para funcionalidades interactivas
+.monthSelector {
+  position: relative;
+  display: inline-block;
+}
+
+.monthButton {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+
+  &:hover {
+    background: var(--color-surface);
+    color: var(--color-accent);
+  }
+}
+
+.monthDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+
+.monthOption {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+
+  &:hover {
+    background: var(--color-surface-dark);
+    color: var(--color-accent);
+  }
+
+  &.selected {
+    background: var(--color-accent);
+    color: var(--color-accent-dark);
+    font-weight: 600;
+  }
+
+  &:first-child {
+    border-radius: 8px 8px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 8px 8px;
+  }
+}
+
+.yearName {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  min-width: 50px;
+
+  &:hover {
+    background: var(--color-surface);
+    color: var(--color-accent);
+  }
+}
+
+.yearInput {
+  background: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: 6px;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 4px 8px;
+  text-align: center;
+  width: 60px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+
+  &:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(249, 209, 47, 0.2);
+  }
+}

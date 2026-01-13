@@ -1,0 +1,602 @@
+// Dashboard.module.scss - Clean Dashboard Content
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #0f0f0f;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #ffffff;
+  padding: 32px;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 32px 0;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+/* KPI Grid */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.kpiCard {
+  background: #171717;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #444444;
+    transform: translateY(-2px);
+  }
+}
+
+.kpiContent {
+  flex: 1;
+}
+
+.kpiTitle {
+  font-size: 14px;
+  color: #888888;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.kpiValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.kpiChange {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.trendUp {
+  color: #299d58;
+}
+
+.trendDown {
+  color: #ed2c2c;
+}
+
+.changeText {
+  &.positive {
+    color: #299d58;
+  }
+  
+  &.negative {
+    color: #ed2c2c;
+  }
+}
+
+.kpiIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f06f26, #f8d02d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+/* Charts Section */
+.chartsSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.salesChart,
+.distributionChart {
+  background: #171717;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.chartTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.chartFilters {
+  display: flex;
+  gap: 8px;
+}
+
+.filterBtn {
+  padding: 8px 16px;
+  border: 1px solid #333333;
+  background: transparent;
+  color: #888888;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #444444;
+    color: #ffffff;
+  }
+  
+  &.active {
+    background: #f8d02d;
+    border-color: #f8d02d;
+    color: #000000;
+  }
+}
+
+.chartPlaceholder {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chartArea {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f06f26, #f8d02d);
+  border-radius: 8px;
+  opacity: 0.8;
+}
+
+.chartContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.doughnutChart {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  
+  canvas {
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+}
+
+.pieLabels {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.pieLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.labelDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Estado de Canillas */
+.canillasSection {
+  margin-bottom: 32px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.manageBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #f06f26, #f8d02d);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(240, 111, 38, 0.3);
+  }
+}
+
+.canillasGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+.canillaCard {
+  background: #171717;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #444444;
+    transform: translateY(-2px);
+  }
+}
+
+.canillaHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.canillaName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.iconActive {
+  color: #299d58;
+}
+
+.iconWarning {
+  color: #f8d02d;
+}
+
+.iconCritical {
+  color: #ed2c2c;
+}
+
+.canillaBeer {
+  font-size: 12px;
+  color: #888888;
+  margin: 0 0 16px 0;
+}
+
+.canillaLevel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.levelLabel {
+  color: #888888;
+}
+
+.levelValue {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: #333333;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Top 5 Sections */
+.topSections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.topCervezas,
+.topClientes {
+  background: #171717;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.topList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.topItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #333333;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.topItemLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.rankBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  
+  &.rankFirst {
+    background: linear-gradient(135deg, #f06f26, #f8d02d);
+  }
+}
+
+.topItemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.clientInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.itemName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.itemType {
+  font-size: 12px;
+  color: #888888;
+  margin: 0;
+}
+
+.itemPrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f8d02d;
+}
+
+.tierBadge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  
+  &.tierOro {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+  }
+  
+  &.tierPlata {
+    background: rgba(192, 192, 192, 0.2);
+    color: #c0c0c0;
+  }
+  
+  &.tierBronce {
+    background: rgba(205, 127, 50, 0.2);
+    color: #cd7f32;
+  }
+}
+
+/* Payment Section */
+.paymentSection {
+  margin-bottom: 32px;
+}
+
+.paymentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.paymentCard {
+  background: #171717;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #444444;
+    transform: translateY(-2px);
+  }
+}
+
+.paymentIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f06f26, #f8d02d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.paymentIconBlue {
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+}
+
+.paymentInfo {
+  flex: 1;
+}
+
+.paymentName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.paymentPercentage {
+  font-size: 12px;
+  color: #888888;
+  margin: 0;
+}
+
+.paymentAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f8d02d;
+}
+
+.paymentAmountBlue {
+  color: #3b82f6;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .kpiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .canillasGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .chartsSection {
+    grid-template-columns: 1fr;
+  }
+  
+  .topSections {
+    grid-template-columns: 1fr;
+  }
+  
+  .paymentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 16px;
+  }
+  
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .canillasGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .canillasGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Loading and Error States */
+.loading,
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  min-height: 400px;
+
+  p {
+    font-size: 16px;
+    color: #888888;
+    margin: 0 0 16px 0;
+  }
+}
+
+.retryButton {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #f06f26, #f8d02d);
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(240, 111, 38, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

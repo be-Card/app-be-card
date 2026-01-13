@@ -1,0 +1,2022 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 30px;
+  width: 100%;
+  min-height: calc(100vh - 79px);
+  gap: 20px;
+  background: var(--Fondo-Oscuro, #0f0f0f);
+  color: var(--Blanco, #ffffff);
+}
+
+// Tabs
+.tabs {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 20px;
+  border-radius: 10px;
+  background: var(--Gris-grafito, #1f1f1f);
+  padding: 10px;
+  width: 100%;
+
+  .tab {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 17px;
+    letter-spacing: 0;
+    color: var(--Blanco, #ffffff);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    &.active {
+      background: var(--Fondo-Oscuro, #0f0f0f);
+    }
+
+    &.inactive {
+      background: transparent;
+      text-align: center;
+    }
+
+    &:hover {
+      background: var(--Gris-Oscuro, #333333);
+    }
+  }
+}
+
+// Controles y filtros
+.controls {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+
+  .searchBar {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    gap: 15px;
+    border-radius: 10px;
+    background: var(--Gris-carb-n, #1f1f1f);
+    padding: 10px 20px;
+    width: 416px;
+    min-width: 300px;
+
+    .searchIcon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: var(--Blanco, #ffffff);
+    }
+
+    .searchInput {
+      flex-grow: 1;
+      align-self: stretch;
+      background: transparent;
+      border: none;
+      outline: none;
+      letter-spacing: 0;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+
+      &::placeholder {
+        color: var(--Blanco, #ffffff);
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .filterDropdown {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    gap: 10px;
+    border-radius: 10px;
+    background: var(--Gris-carb-n, #1f1f1f);
+    padding: 10px 20px;
+    position: relative;
+    min-width: 150px;
+
+    .filterIcon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: var(--Blanco, #ffffff);
+    }
+
+    .filterSelect {
+      flex-grow: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      letter-spacing: 0;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      appearance: none;
+      cursor: pointer;
+
+      option {
+        background: var(--Gris-carb-n, #1f1f1f);
+        color: var(--Blanco, #ffffff);
+      }
+    }
+
+    .filterButton {
+      flex-grow: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      text-align: left;
+      letter-spacing: 0;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .filterMenu {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: var(--Gris-carb-n, #1f1f1f);
+      border: 1px solid var(--Gris-Oscuro, #333333);
+      border-radius: 10px;
+      padding: 6px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .filterMenuItem {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+
+      &:hover {
+        background: var(--Gris-Oscuro, #333333);
+      }
+    }
+
+    .selected {
+      background: var(--Gris-Oscuro, #333333);
+    }
+
+    .dropdownIcon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      width: 18px;
+      height: 18px;
+      color: var(--Blanco, #ffffff);
+      pointer-events: none;
+    }
+  }
+
+  .viewButtons {
+    display: inline-flex;
+    align-items: center;
+    align-self: stretch;
+    gap: 10px;
+    border-radius: 10px;
+    background: var(--Gris-carb-n, #1f1f1f);
+    padding-right: 10px;
+    padding-left: 10px;
+
+    .viewButton {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      border-radius: 5px;
+      padding: 5px;
+      gap: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: transparent;
+      color: var(--Blanco, #ffffff);
+
+      &.active {
+        background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+      }
+
+      &:hover:not(.active) {
+        background: var(--Gris-Oscuro, #333333);
+      }
+    }
+  }
+
+  .addButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--Blanco, #ffffff);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+  }
+
+  .addCanillaButton {
+    background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+  }
+}
+
+// Grid de cervezas
+.beersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  align-self: stretch;
+  width: 100%;
+}
+
+.beerCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border: 1px solid var(--Gris-Oscuro, #333333);
+  border-radius: 10px;
+  background: var(--Gris-carb-n, #1f1f1f);
+  padding-bottom: 14px;
+  gap: 15px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .beerCardHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    justify-content: center;
+    border-radius: 10px 10px 0px 0px;
+    background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+    padding: 5px;
+    height: 126px;
+    gap: 10px;
+
+    .beerIcon {
+      flex-shrink: 0;
+      width: 75px;
+      height: 75px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      .beerImage {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .hidden {
+        display: none;
+      }
+    }
+  }
+
+  .beerCardContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+    padding-right: 20px;
+    padding-left: 20px;
+    gap: 20px;
+
+    .beerCardTitle {
+      display: flex;
+      align-items: flex-start;
+      align-self: stretch;
+      justify-content: space-between;
+
+      .beerInfo {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        .beerName {
+          margin: 0;
+          line-height: 22px;
+          letter-spacing: 0;
+          color: var(--Blanco, #ffffff);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 18px;
+          font-weight: 700;
+        }
+
+        .brewery {
+          margin: 0;
+          line-height: 17px;
+          letter-spacing: 0;
+          color: var(--Blanco, #ffffff);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+        }
+      }
+
+      .statusBadge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        border-radius: 100px;
+        padding: 5px 10px;
+
+        &.activa {
+          border: 1px solid var(--Verde, #299d58);
+          background: #299d581a;
+
+          span {
+            color: var(--Verde, #299d58);
+          }
+        }
+
+        &.inactiva {
+          border: 1px solid var(--Rojo, #ed2c2c);
+          background: #ed2c2c1a;
+
+          span {
+            color: var(--Rojo, #ed2c2c);
+          }
+        }
+
+        span {
+          line-height: 15px;
+          letter-spacing: 0;
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .beerDetails {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: stretch;
+      gap: 10px;
+
+      .detailRow {
+        display: flex;
+        align-items: flex-start;
+        align-self: stretch;
+        justify-content: space-between;
+
+        .label {
+          line-height: 17px;
+          letter-spacing: 0;
+          color: var(--Blanco, #ffffff);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+        }
+
+        .value {
+          line-height: 17px;
+          letter-spacing: 0;
+          color: var(--Blanco, #ffffff);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .price {
+          line-height: 17px;
+          letter-spacing: 0;
+          color: var(--Naranja, #f5970a);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .stock {
+          line-height: 17px;
+          letter-spacing: 0;
+          color: var(--Verde, #299d58);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .beerActions {
+      display: flex;
+      align-items: flex-start;
+      align-self: stretch;
+      gap: 15px;
+
+      .editButton {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 1px solid var(--Blanco, #ffffff);
+        border-radius: 10px;
+        padding: 10px 20px;
+        background: transparent;
+        color: var(--Blanco, #ffffff);
+        font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: var(--Blanco, #ffffff);
+          color: var(--Negro-suave, #121212);
+        }
+      }
+
+      .deleteButton {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 1px solid var(--Rojo, #ed2c2c);
+        border-radius: 10px;
+        padding: 10px 20px;
+        background: transparent;
+        color: var(--Rojo, #ed2c2c);
+        font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: var(--Rojo, #ed2c2c);
+          color: var(--Blanco, #ffffff);
+        }
+      }
+    }
+  }
+}
+
+// Paginación
+.pagination {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+  padding-right: 20px;
+  padding-left: 20px;
+
+  .paginationInfo {
+    line-height: 15px;
+    letter-spacing: 0;
+    color: var(--Blanco, #ffffff);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .paginationControls {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    .paginationButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--Gris-Oscuro, #333333);
+      border-radius: 5px;
+      padding: 5px;
+      width: 26px;
+      height: 26px;
+      background: transparent;
+      color: var(--Blanco, #ffffff);
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover:not(:disabled) {
+        background: var(--Gris-Oscuro, #333333);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .pageButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 5px;
+      width: 26px;
+      height: 26px;
+      border: none;
+      background: transparent;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.active {
+        background: var(--Negro-grafito, #171717);
+      }
+
+      &:not(.active) {
+        border: 1px solid var(--Gris-Oscuro, #333333);
+      }
+
+      &:hover:not(.active) {
+        background: var(--Gris-Oscuro, #333333);
+      }
+    }
+
+    .paginationEllipsis {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      color: var(--Blanco, #ffffff);
+      opacity: 0.7;
+      user-select: none;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 1200px) {
+  .container {
+    padding: 15px 20px;
+  }
+
+  .beersGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .searchBar {
+      width: 100%;
+      min-width: auto;
+    }
+
+    .filterDropdown {
+      flex: 1;
+      min-width: 120px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px 15px;
+  }
+
+  .beersGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+
+    .searchBar,
+    .filterDropdown,
+    .viewButtons,
+    .addButton {
+      width: 100%;
+    }
+
+    .viewButtons {
+      justify-content: center;
+    }
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+
+    .paginationControls {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  .beerCard {
+    .beerCardContent {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    .beerActions {
+      flex-direction: column;
+      gap: 10px;
+
+      .editButton,
+      .deleteButton {
+        flex-grow: 0;
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Estilos para la vista de tabla
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: var(--Gris-carb-n, #1f1f1f);
+  border: 1px solid var(--Gris-Oscuro, #333333);
+}
+
+.beerTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+
+  thead {
+    background: var(--Gris-Oscuro, #333333);
+
+    th {
+      padding: 15px 20px;
+      text-align: left;
+      color: var(--Blanco, #ffffff);
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--Gris-Oscuro, #333333);
+      white-space: nowrap;
+
+      &:first-child {
+        border-radius: 10px 0 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 10px 0 0;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid var(--Gris-Oscuro, #333333);
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      td {
+        padding: 15px 20px;
+        color: var(--Blanco, #ffffff);
+        font-size: 14px;
+        font-weight: 400;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.beerNameCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 200px;
+
+  .beerIconSmall {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .beerNameInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .beerName {
+      color: var(--Blanco, #ffffff);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .brewery {
+      color: var(--Blanco, #ffffff);
+      font-size: 12px;
+      font-weight: 300;
+      opacity: 0.7;
+      line-height: 1.2;
+    }
+  }
+}
+
+.beerImageSmall {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hidden {
+  display: none;
+}
+
+.styleBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+
+  &.yellow {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid #ffc107;
+  }
+
+  &.purple {
+    background: rgba(156, 39, 176, 0.2);
+    color: #9c27b0;
+    border: 1px solid #9c27b0;
+  }
+
+  &.blue {
+    background: rgba(33, 150, 243, 0.2);
+    color: #2196f3;
+    border: 1px solid #2196f3;
+  }
+
+  &.green {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+    border: 1px solid #4caf50;
+  }
+
+  &.red {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    border: 1px solid #f44336;
+  }
+
+  &.orange {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+    border: 1px solid #ff9800;
+  }
+
+  &.gray {
+    background: rgba(158, 158, 158, 0.2);
+    color: #9e9e9e;
+    border: 1px solid #9e9e9e;
+  }
+}
+
+.priceCell {
+  color: var(--Naranja, #f5970a) !important;
+  font-weight: 600 !important;
+}
+
+.stockCell {
+  font-weight: 600 !important;
+
+  &.green {
+    color: var(--Verde, #299d58) !important;
+  }
+
+  &.yellow {
+    color: #ffc107 !important;
+  }
+
+  &.red {
+    color: var(--Rojo, #ed2c2c) !important;
+  }
+}
+
+.barrelLevelCell {
+  padding: 12px !important;
+  min-width: 180px;
+}
+
+.barrelLevelContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.barrelLevelInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.barrelLevelText {
+  font-weight: 600;
+  font-size: 14px;
+
+  &.high {
+    color: var(--Verde, #299d58);
+  }
+
+  &.medium {
+    color: #ff9800;
+  }
+
+  &.low {
+    color: var(--Rojo, #ed2c2c);
+  }
+}
+
+.barrelLevelStatus {
+  font-size: 12px;
+  color: var(--color-text-secondary, #b3b3b3);
+  font-weight: 400;
+}
+
+.progressBarTable {
+  width: 100%;
+  height: 6px;
+  background: var(--Gris-Oscuro, #333333);
+  border-radius: 3px;
+  overflow: hidden;
+
+  .progressFill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+
+    &.high {
+      background: var(--Verde, #299d58);
+    }
+
+    &.medium {
+      background: #ff9800;
+    }
+
+    &.low {
+      background: var(--Rojo, #ed2c2c);
+    }
+  }
+}
+
+.actionsCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .editButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--Blanco, #ffffff);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--Blanco, #ffffff);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--Blanco, #ffffff);
+      color: var(--Negro-suave, #121212);
+    }
+  }
+
+  .deleteButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--Rojo, #ed2c2c);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--Rojo, #ed2c2c);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--Rojo, #ed2c2c);
+      color: var(--Blanco, #ffffff);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .tabs {
+    padding: 5px;
+
+    .tab {
+      padding: 8px 15px;
+      font-size: 12px;
+    }
+  }
+
+  .beerCard {
+    .beerCardHeader {
+      height: 100px;
+
+      .beerIcon {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    .beerCardContent {
+      padding: 15px 10px;
+      gap: 15px;
+
+      .beerCardTitle {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  // Estilos responsivos para la tabla
+  .tableContainer {
+    overflow-x: scroll;
+  }
+
+  .beerTable {
+    min-width: 800px;
+
+    thead th {
+      padding: 10px 15px;
+      font-size: 12px;
+    }
+
+    tbody td {
+      padding: 10px 15px;
+      font-size: 12px;
+    }
+  }
+
+  .beerNameCell {
+    min-width: 150px;
+    gap: 8px;
+
+    .beerIconSmall {
+      width: 24px;
+      height: 24px;
+    }
+
+    .beerNameInfo {
+      .beerName {
+        font-size: 12px;
+      }
+
+      .brewery {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .styleBadge {
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+
+  .actionsCell {
+    gap: 4px;
+
+    .editButton,
+    .deleteButton {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}
+
+// Canillas Grid Styles
+.canillasGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  align-self: stretch;
+  width: 100%;
+}
+
+.canillaCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 1px solid var(--Gris-Oscuro, #333333);
+  border-radius: 10px;
+  background: var(--Gris-carb-n, #1f1f1f);
+  padding: 20px;
+  gap: 20px;
+  transition: all 0.3s ease;
+  min-height: 280px;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  &.offline {
+    opacity: 0.5;
+  }
+
+  .canillaHeader {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+    justify-content: space-between;
+    gap: 10px;
+
+    .canillaInfo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+
+      .canillaName {
+        margin: 0;
+        line-height: 22px;
+        letter-spacing: 0;
+        color: var(--Blanco, #ffffff);
+        font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .canillaLocation {
+        margin: 0;
+        line-height: 17px;
+        letter-spacing: 0;
+        color: var(--Blanco, #ffffff);
+        font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        opacity: 0.8;
+      }
+    }
+
+    .statusBadge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border-radius: 100px;
+      padding: 5px 10px;
+      flex-shrink: 0;
+
+      &.online {
+        border: 1px solid var(--Verde, #299d58);
+        background: #299d581a;
+
+        span {
+          color: var(--Verde, #299d58);
+          line-height: 15px;
+          letter-spacing: 0;
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+
+      &.offline {
+        border: 1px solid #cbcbcb;
+        background: #cbcbcb1a;
+
+        span {
+          color: #cbcbcb;
+          line-height: 15px;
+          letter-spacing: 0;
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .canillaContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+    gap: 15px;
+    flex-grow: 1;
+
+    .canillaDetail {
+      display: flex;
+      align-items: flex-start;
+      align-self: stretch;
+      justify-content: space-between;
+
+      .label {
+        line-height: 17px;
+        letter-spacing: 0;
+        color: var(--Blanco, #ffffff);
+        font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        opacity: 0.8;
+      }
+
+      .value {
+        line-height: 17px;
+        letter-spacing: 0;
+        color: var(--Blanco, #ffffff);
+        font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    .barrelSection {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: stretch;
+      gap: 8px;
+
+      .barrelInfo {
+        display: flex;
+        align-items: flex-start;
+        align-self: stretch;
+        justify-content: space-between;
+
+        .label {
+          line-height: 17px;
+          letter-spacing: 0;
+          color: var(--Blanco, #ffffff);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          opacity: 0.8;
+        }
+
+        .barrelLevel {
+          line-height: 17px;
+          letter-spacing: 0;
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+
+          &.high {
+            color: var(--Verde, #299d58);
+          }
+
+          &.medium {
+            color: #ff9800;
+          }
+
+          &.low {
+            color: var(--Rojo, #ed2c2c);
+          }
+        }
+      }
+
+      .progressBar {
+        width: 100%;
+        height: 8px;
+        background: var(--Gris-Oscuro, #333333);
+        border-radius: 4px;
+        overflow: hidden;
+
+        .progressFill {
+          height: 100%;
+          border-radius: 4px;
+          transition: width 0.3s ease;
+
+          &.high {
+            background: var(--Verde, #299d58);
+          }
+
+          &.medium {
+            background: #ff9800;
+          }
+
+          &.low {
+            background: var(--Rojo, #ed2c2c);
+          }
+        }
+      }
+
+      .volumeText {
+        line-height: 15px;
+        letter-spacing: 0;
+        color: var(--Blanco, #ffffff);
+        font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        font-weight: 300;
+        opacity: 0.7;
+        align-self: flex-end;
+      }
+    }
+  }
+
+  .cardDivider {
+    width: 100%;
+    height: 1px;
+    background: var(--Gris-Oscuro, #333333);
+  }
+
+  .canillaActions {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    gap: 10px;
+
+    .changeButton {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--Blanco, #ffffff);
+      background: transparent;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+
+      &:hover {
+        background: var(--Blanco, #ffffff);
+        color: var(--Negro-suave, #121212);
+      }
+
+      span {
+        line-height: 17px;
+        letter-spacing: 0;
+      }
+    }
+
+    .toggleButton {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 8px;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+
+      &.deactivate {
+        background: var(--Rojo, #ed2c2c);
+        color: var(--Blanco, #ffffff);
+
+        &:hover {
+          background: #d32f2f;
+        }
+      }
+
+      &.activate {
+        background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+        color: var(--Blanco, #ffffff);
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
+      span {
+        line-height: 17px;
+        letter-spacing: 0;
+      }
+    }
+
+    .deleteCanillaButton {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--Rojo, #ed2c2c);
+      background: transparent;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--Rojo, #ed2c2c);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+
+      &:hover {
+        background: var(--Rojo, #ed2c2c);
+        color: var(--Blanco, #ffffff);
+      }
+    }
+  }
+}
+
+// Responsive styles for canillas
+@media (max-width: 1200px) {
+  .canillasGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .canillasGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+  }
+
+  .canillaCard {
+    min-height: 250px;
+    padding: 15px;
+
+    .canillaHeader {
+      .canillaInfo {
+        .canillaName {
+          font-size: 16px;
+        }
+
+        .canillaLocation {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .canillaActions {
+      flex-direction: column;
+      gap: 8px;
+
+      .changeButton,
+      .toggleButton {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+// Modal styles
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContainer {
+  background: var(--Gris-grafito, #1f1f1f);
+  border: 1px solid var(--Gris-Oscuro, #333333);
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 30px 20px;
+  border-bottom: 1px solid var(--Gris-Oscuro, #333333);
+
+  .modalTitle {
+    color: var(--Blanco, #ffffff);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  .closeButton {
+    background: transparent;
+    border: none;
+    color: var(--Blanco, #ffffff);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--Gris-Oscuro, #333333);
+    }
+  }
+}
+
+.modalForm {
+  padding: 25px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.photoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .photoLabel {
+    color: var(--Blanco, #ffffff);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0;
+
+    .required {
+      color: var(--Rojo, #ed2c2c);
+      margin-left: 2px;
+    }
+  }
+
+  .photoUpload {
+    border: 2px dashed #f06f26;
+    border-radius: 10px;
+    background: transparent;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &.dragOver {
+      border-color: #f1c112;
+      background: rgba(240, 111, 38, 0.1);
+    }
+
+    &:hover {
+      border-color: #f1c112;
+      background: rgba(240, 111, 38, 0.05);
+    }
+
+    .uploadIcon {
+      color: #f06f26;
+      width: 32px;
+      height: 32px;
+    }
+
+    .uploadText {
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 17px;
+      letter-spacing: 0;
+      text-align: center;
+      margin: 0;
+      opacity: 0.8;
+    }
+
+    .fileName {
+      color: var(--Verde, #299d58);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 15px;
+      letter-spacing: 0;
+      margin: 0;
+    }
+
+    .selectPhotoButton {
+      background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+      border: none;
+      border-radius: 8px;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 17px;
+      letter-spacing: 0;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .hiddenFileInput {
+    display: none;
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .fieldLabel {
+    color: var(--Blanco, #ffffff);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0;
+
+    .required {
+      color: var(--Rojo, #ed2c2c);
+      margin-left: 2px;
+    }
+  }
+
+  .fieldInput {
+    background: var(--Gris-Oscuro, #333333);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--Blanco, #ffffff);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    letter-spacing: 0;
+    padding: 12px 15px;
+    outline: none;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      border-color: #f06f26;
+      box-shadow: 0 0 0 2px rgba(240, 111, 38, 0.2);
+    }
+
+    &.error {
+      border-color: var(--Rojo, #ed2c2c);
+    }
+  }
+
+  .selectWrapper {
+    position: relative;
+
+    .fieldSelect {
+      background: var(--Gris-Oscuro, #333333);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 17px;
+      letter-spacing: 0;
+      padding: 12px 40px 12px 15px;
+      outline: none;
+      transition: all 0.3s ease;
+      width: 100%;
+      appearance: none;
+      cursor: pointer;
+
+      &:focus {
+        border-color: #f06f26;
+        box-shadow: 0 0 0 2px rgba(240, 111, 38, 0.2);
+      }
+
+      &.error {
+        border-color: var(--Rojo, #ed2c2c);
+      }
+
+      option {
+        background: var(--Gris-Oscuro, #333333);
+        color: var(--Blanco, #ffffff);
+      }
+    }
+
+    .selectIcon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--Blanco, #ffffff);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+  }
+
+  .errorText {
+    color: var(--Rojo, #ed2c2c);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0;
+    margin-top: 4px;
+  }
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid var(--Gris-Oscuro, #333333);
+
+  .submitButton {
+    background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+    border: none;
+    border-radius: 10px;
+    color: var(--Blanco, #ffffff);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0;
+    padding: 12px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Modal responsive styles
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 10px;
+  }
+
+  .modalContainer {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+
+  .modalHeader {
+    padding: 20px 20px 15px;
+
+    .modalTitle {
+      font-size: 18px;
+    }
+  }
+
+  .modalForm {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .photoSection {
+    .photoUpload {
+      padding: 25px 15px;
+
+      .uploadText {
+        font-size: 13px;
+      }
+
+      .selectPhotoButton {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .modalActions {
+    .submitButton {
+      width: 100%;
+      padding: 14px 20px;
+      background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+    }
+  }
+}
+
+// Change Tap Modal Styles
+.changeTapModalContainer {
+  background: var(--Gris-grafito, #1f1f1f);
+  border: 1px solid var(--Gris-Oscuro, #333333);
+  border-radius: 15px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1001;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+}
+
+.changeTapForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 25px;
+
+  .capacitySection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .capacityInput {
+      background: var(--Gris-Oscuro, #333333);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 17px;
+      letter-spacing: 0;
+      padding: 12px 15px;
+      outline: none;
+      cursor: not-allowed;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .capacityButtons {
+      display: flex;
+      gap: 10px;
+
+      .capacityButton {
+        background: var(--Gris-Oscuro, #333333);
+        border: 1px solid var(--Gris-Oscuro, #333333);
+        border-radius: 8px;
+        color: var(--Blanco, #ffffff);
+        font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0;
+        padding: 12px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+
+        &:hover {
+          background: var(--Gris-Medio, #555555);
+        }
+
+        &.selected {
+          background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+          border-color: transparent;
+        }
+
+        &.disabled {
+          background: var(--Gris-Oscuro, #333333);
+          border-color: var(--Gris-Oscuro, #333333);
+          color: rgba(255, 255, 255, 0.3);
+          cursor: not-allowed;
+          opacity: 0.5;
+
+          &:hover {
+            background: var(--Gris-Oscuro, #333333);
+          }
+        }
+      }
+    }
+  }
+
+  .capacityInfo {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 8px;
+  }
+
+  .errorMessage {
+    color: #ff4444;
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0;
+    margin-top: 5px;
+  }
+
+  .capacityInput.error {
+    border-color: #ff4444;
+    box-shadow: 0 0 0 1px rgba(255, 68, 68, 0.3);
+  }
+
+  .infoText {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0;
+    margin: 0;
+    font-style: italic;
+  }
+
+  .summarySection {
+    background: var(--Gris-Oscuro, #333333);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+
+    .summaryTitle {
+      color: var(--Blanco, #ffffff);
+      font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 19px;
+      letter-spacing: 0;
+      margin: 0 0 15px 0;
+    }
+
+    .summaryContent {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .summaryRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .summaryLabel {
+          color: rgba(255, 255, 255, 0.7);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 17px;
+          letter-spacing: 0;
+        }
+
+        .summaryValue {
+          color: var(--Blanco, #ffffff);
+          font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 17px;
+          letter-spacing: 0;
+        }
+      }
+    }
+  }
+}
+
+// Change Tap Modal responsive styles
+@media (max-width: 768px) {
+  .changeTapModalContainer {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+
+  .changeTapForm {
+    padding: 20px;
+    gap: 18px;
+
+    .capacitySection {
+      .capacityButtons {
+        .capacityButton {
+          padding: 10px 16px;
+          font-size: 13px;
+        }
+      }
+    }
+
+    .summarySection {
+      padding: 15px;
+
+      .summaryTitle {
+        font-size: 15px;
+        margin-bottom: 12px;
+      }
+
+      .summaryContent {
+        gap: 10px;
+
+        .summaryRow {
+          .summaryLabel,
+          .summaryValue {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Utilidades
+.hidden {
+  display: none !important;
+}

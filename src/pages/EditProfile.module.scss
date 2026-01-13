@@ -1,0 +1,687 @@
+// Variables CSS
+:root {
+  --color-background: #0f0f0f;
+  --color-surface: #1f1f1f;
+  --color-surface-dark: #121212;
+  --color-border: #333333;
+  --color-border-light: #171717;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-accent: #f9d12f;
+  --color-accent-dark: #121212;
+  --color-success: #299d58;
+  --color-success-bg: rgba(41, 157, 88, 0.1);
+  --color-warning: #f5970a;
+  --color-required: #f8d02d;
+  --gradient-primary: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+}
+
+.profileContainer {
+  padding: 20px 30px;
+  background: var(--color-background);
+  min-height: 100vh;
+  color: var(--color-text-primary);
+  font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .titleSection {
+    .title {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 27px;
+      margin: 0 0 10px 0;
+      color: var(--color-text-primary);
+    }
+
+    .subtitle {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 17px;
+      margin: 0;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: var(--gradient-primary);
+    color: var(--color-text-primary);
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(241, 193, 18, 0.3);
+    }
+  }
+}
+
+.profileContent {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 313px;
+
+  @media (max-width: 1024px) {
+    min-width: 100%;
+  }
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 19px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  gap: 15px;
+
+  .avatarSection {
+    display: flex;
+    justify-content: center;
+    align-self: stretch;
+    margin: 0 63px;
+
+    .avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      padding: 39px 28px 38px;
+
+      .initials {
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--color-accent-dark);
+        line-height: 1;
+      }
+    }
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+
+    .userName {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 27px;
+      margin: 0;
+      color: var(--color-text-primary);
+    }
+
+    .userEmail {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 17px;
+      margin: 0;
+      color: var(--color-text-secondary);
+    }
+
+    .roleBadge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 10px;
+      border: 1px solid var(--color-success);
+      border-radius: 100px;
+      background: var(--color-success-bg);
+      margin: 0 87px;
+
+      span {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        color: var(--color-success);
+      }
+    }
+  }
+
+  .divider {
+    align-self: stretch;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .memberInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-self: stretch;
+
+    .infoRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .label {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 17px;
+        color: var(--color-text-secondary);
+      }
+
+      .value {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 17px;
+        color: var(--color-text-primary);
+      }
+    }
+  }
+}
+
+.statsCard {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 19px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  gap: 20px;
+
+  .statsTitle {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    margin: 0;
+    color: var(--color-text-primary);
+  }
+
+  .statItem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .statHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .statLabel {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 17px;
+        color: var(--color-text-secondary);
+      }
+
+      .statValue {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 17px;
+        color: var(--color-text-primary);
+      }
+    }
+
+    .progressBar {
+      position: relative;
+      height: 6px;
+      border-radius: 10px;
+      background: var(--color-border);
+      overflow: hidden;
+
+      .progressFill {
+        height: 100%;
+        border-radius: 10px 0 0 10px;
+        background: var(--color-warning);
+        transition: width 0.3s ease;
+
+        &.activityProgress {
+          background: var(--color-success);
+        }
+      }
+    }
+  }
+}
+
+.rightColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  padding: 14px 19px;
+  gap: 20px;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .sectionTitle {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 27px;
+    margin: 0;
+    color: var(--color-text-primary);
+    align-self: stretch;
+  }
+
+  .formGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      &.fullWidth {
+        grid-column: 1 / -1;
+      }
+
+      .inputLabel {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        color: var(--color-text-primary);
+
+        .required {
+          color: var(--color-required);
+        }
+      }
+
+      .inputField {
+        display: flex;
+        align-items: center;
+        padding: 9px 14px;
+        border: 1px solid var(--color-border-light);
+        border-radius: 100px;
+        background: var(--color-border-light);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.07);
+
+        span {
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 15px;
+          color: var(--color-text-muted);
+        }
+
+        input, select {
+          width: 100%;
+          border: none;
+          background: transparent;
+          outline: none;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 15px;
+          color: #fff !important; // Force black text for better visibility
+          
+          &::placeholder {
+            color: rgb(255, 255, 255) !important; // Muted black for placeholder
+          }
+        }
+
+        select {
+          cursor: pointer;
+          color: #fff !important; // Force white text for select
+          border-radius: 8px; // Rounded corners for select
+          appearance: none; // Remove default styling
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-position: right 12px center;
+          background-size: 16px;
+          padding-right: 40px; // Space for dropdown arrow
+          
+          // Estilos para el foco del select
+          &:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+          }
+          
+          // Estilos para las opciones
+          option {
+            color: #fff !important;
+            background-color: #0f0f0f !important;
+            background: #0f0f0f !important;
+            padding: 8px 12px !important;
+            font-weight: 700;
+            border: none !important;
+            
+            // Forzar estilos para opciones seleccionadas/hover
+            &:checked {
+              background-color: #f06f26 !important;
+              background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%) !important;
+              color: #000000 !important;
+              font-weight: 700 !important;
+            }
+            
+            &:hover {
+              background-color: #f06f26 !important;
+              background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%) !important;
+              color: #000000 !important;
+            }
+            
+            &:focus {
+              background-color: #f06f26 !important;
+              background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%) !important;
+              color: #000000 !important;
+            }
+            
+            &[selected] {
+              background-color: #f06f26 !important;
+              background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%) !important;
+              color: #000000 !important;
+            }
+          }
+        }
+        
+        // Estilos específicos para navegadores webkit
+        select::-webkit-scrollbar {
+          width: 8px;
+        }
+        
+        select::-webkit-scrollbar-track {
+          background: #0f0f0f;
+        }
+        
+        select::-webkit-scrollbar-thumb {
+          background: var(--color-accent);
+          border-radius: 4px;
+        }
+        
+        // Estilos adicionales para forzar el color amarillo en las opciones
+        select option:checked,
+        select option[selected] {
+          background-color: #f06f26 !important;
+          background-image: linear-gradient(270deg, #f06f26 0%, #f1c112 100%) !important;
+          color: #000000 !important;
+          box-shadow: 0 0 10px rgba(240, 111, 38, 0.5) !important;
+        }
+        
+        // Estilos específicos para Firefox
+        @-moz-document url-prefix() {
+          select option:checked {
+            background-color: #f06f26 !important;
+            color: #000000 !important;
+          }
+        }
+        
+        // Forzar estilos en el contenedor del select
+        .formGroup select {
+          &:focus option:checked,
+          &:focus option[selected] {
+            background: #f06f26 !important;
+            background-color: #f06f26 !important;
+            color: #000000 !important;
+          }
+        }
+      }
+
+      .editableField {
+        display: flex;
+        align-items: center;
+        padding: 9px 14px;
+        border: 1px solid var(--color-border-light);
+        border-radius: 100px;
+        background: var(--color-surface-dark);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.07);
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 15px;
+        color: var(--color-text-primary);
+        transition: all 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--color-accent);
+          box-shadow: 0 0 0 2px rgba(249, 209, 47, 0.2);
+        }
+
+        &::placeholder {
+          color: var(--color-text-muted);
+        }
+      }
+
+      .errorMessage {
+        font-size: 12px;
+        font-weight: 400;
+        color: #ffffff;
+        margin-top: 4px;
+        display: block;
+      }
+    }
+
+    // Grid layout for larger screens
+    @media (min-width: 768px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+
+      .inputGroup.fullWidth {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+}
+
+.divider {
+  align-self: stretch;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.messageContainer {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+
+  &.success {
+    background: var(--color-success-bg);
+    border: 1px solid var(--color-success);
+    color: var(--color-success);
+  }
+
+  &.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+    color: #ef4444;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .profileContainer {
+    padding: 15px 20px;
+  }
+
+  .profileHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+
+    .backButton {
+      align-self: stretch;
+      justify-content: center;
+    }
+  }
+
+  .profileContent {
+    gap: 15px;
+  }
+
+  .leftColumn {
+    min-width: 100%;
+  }
+
+  .profileCard {
+    .avatarSection {
+      margin: 0 30px;
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+        padding: 30px 20px 28px;
+
+        .initials {
+          font-size: 36px;
+        }
+      }
+    }
+
+    .userInfo .roleBadge {
+      margin: 0 50px;
+    }
+  }
+
+  .buttonContainer {
+    justify-content: center;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+  }
+
+  .saveButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileContainer {
+    padding: 10px 15px;
+  }
+
+  .profileCard {
+    .avatarSection {
+      margin: 0 15px;
+
+      .avatar {
+        width: 100px;
+        height: 100px;
+        padding: 25px 15px 23px;
+
+        .initials {
+          font-size: 28px;
+        }
+      }
+    }
+
+    .userInfo .roleBadge {
+      margin: 0 30px;
+    }
+  }
+
+  .rightColumn {
+    padding: 10px 15px;
+  }
+}
+
+// Loading and Error States
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 20px;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border);
+    border-top: 3px solid var(--color-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+}
+
+.errorContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+
+  p {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    text-align: center;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

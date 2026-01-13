@@ -1,0 +1,390 @@
+// Register.module.scss - Replicando estilos del Dashboard
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.registerContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f0f0f;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  padding: 32px;
+}
+
+.registerCard {
+  background: #171717;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  transition: all 0.2s ease;
+  animation: slideUp 0.5s ease-out;
+  
+  &:hover {
+    border-color: #444444;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #888888;
+  margin: 0;
+  font-weight: 500;
+}
+
+.errorAlert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(237, 44, 44, 0.1);
+  color: #ed2c2c;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  border: 1px solid rgba(237, 44, 44, 0.2);
+  font-weight: 500;
+}
+
+.successMessage {
+  text-align: center;
+  padding: 40px 20px;
+
+  .successIcon {
+    color: #299d58;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 16px 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  p {
+    color: #888888;
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.devLink {
+  display: inline-block;
+  margin-top: 8px;
+  color: #f8d02d;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.devLink:hover {
+  color: #f06f26;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  background: #171717;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+
+  &:focus {
+    outline: none;
+    border-color: #f06f26;
+    box-shadow: 0 0 0 3px rgba(240, 111, 38, 0.1);
+  }
+
+  &::placeholder {
+    color: #888888;
+  }
+
+  &:disabled {
+    background: #0f0f0f;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  // Special styling for date input
+  &[type="date"] {
+    color: #ffffff;
+    
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+    
+    &::-webkit-datetime-edit {
+      color: #ffffff;
+    }
+    
+    &::-webkit-datetime-edit-fields-wrapper {
+      color: #ffffff;
+    }
+    
+    &::-webkit-datetime-edit-text {
+      color: #888888;
+    }
+    
+    &::-webkit-datetime-edit-month-field,
+    &::-webkit-datetime-edit-day-field,
+    &::-webkit-datetime-edit-year-field {
+      color: #ffffff;
+    }
+  }
+
+  // Special styling for select
+  &[type="select"] {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+
+    option {
+      background: #171717;
+      color: #ffffff;
+      border: none;
+    }
+  }
+}
+
+// Special styling for select elements
+select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+  cursor: pointer;
+
+  option {
+    background: #171717;
+    color: #ffffff;
+    border: none;
+  }
+}
+
+.inputError {
+  border-color: #ed2c2c !important;
+  
+  &:focus {
+    border-color: #ed2c2c !important;
+    box-shadow: 0 0 0 3px rgba(237, 44, 44, 0.1) !important;
+  }
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  color: #888888;
+  z-index: 1;
+  transition: color 0.2s ease;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #888888;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #f06f26;
+    background: rgba(240, 111, 38, 0.1);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.errorText {
+  font-size: 12px;
+  color: #ed2c2c;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #f06f26, #f8d02d);
+  color: #ffffff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+  font-family: 'Inter', sans-serif;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(240, 111, 38, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #333333;
+
+  p {
+    margin: 0;
+    color: #888888;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.link {
+  color: #f8d02d;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #f06f26;
+    text-decoration: underline;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .registerContainer {
+    padding: 16px;
+  }
+
+  .registerCard {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .input {
+    font-size: 16px; // Prevent zoom on iOS
+  }
+}
+
+@media (max-width: 640px) {
+  .registerCard {
+    padding: 20px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .form {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .registerContainer {
+    padding: 16px;
+  }
+
+  .registerCard {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}

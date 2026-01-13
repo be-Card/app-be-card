@@ -1,0 +1,1289 @@
+// ClientDetail.module.scss - Estilos para la pantalla de detalle del cliente
+
+.clientDetail {
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+// Header principal
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #0a0a0a;
+  border-bottom: 1px solid #1a1a1a;
+
+  .headerTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .headerIcons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .notificationIcon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background-color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      .iconPlaceholder {
+        width: 20px;
+        height: 20px;
+        background-color: #666666;
+        border-radius: 4px;
+      }
+    }
+
+    .userAvatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      .userInitials {
+        font-size: 14px;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Estilos para la pestaña de métodos de pago
+.paymentSection {
+  .sectionTitle {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    line-height: 27px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .paymentMethodsGrid {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+
+    .paymentMethodCard {
+      flex: 1;
+      background-color: #171717;
+      border: 1px solid #333333;
+      border-radius: 10px;
+      padding: 14px 19px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 120px;
+
+      .paymentMethodHeader {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .paymentStatusBadge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 5px 10px;
+          border: 1px solid #299d58;
+          border-radius: 100px;
+          background: rgba(41, 157, 88, 0.1);
+
+          span {
+            font-size: 12px;
+            font-weight: 500;
+            color: #299d58;
+            font-family: 'Inter', sans-serif;
+            line-height: 15px;
+          }
+        }
+      }
+
+      .paymentMethodContent {
+        flex: 1;
+        margin-bottom: 10px;
+
+        .paymentMethodName {
+          font-size: 14px;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0 0 5px 0;
+          line-height: 17px;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .paymentMethodType {
+          font-size: 14px;
+          font-weight: 300;
+          color: #ffffff;
+          margin: 0;
+          line-height: 17px;
+          font-family: 'Inter', sans-serif;
+        }
+      }
+
+      .paymentMethodFooter {
+        .lastUsed {
+          font-size: 14px;
+          font-weight: 300;
+          color: #ffffff;
+          margin: 0;
+          line-height: 17px;
+          font-family: 'Inter', sans-serif;
+        }
+      }
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    .paymentMethodsGrid {
+      flex-direction: column;
+      gap: 16px;
+
+      .paymentMethodCard {
+        min-height: auto;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sectionTitle {
+      font-size: 18px;
+    }
+
+    .paymentMethodsGrid {
+      gap: 12px;
+
+      .paymentMethodCard {
+        padding: 12px 16px;
+
+        .paymentMethodContent {
+          .paymentMethodName {
+            font-size: 13px;
+          }
+
+          .paymentMethodType {
+            font-size: 13px;
+          }
+        }
+
+        .paymentMethodFooter {
+          .lastUsed {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Estilos para la pestaña de recompensas
+.rewardsSection {
+  .loyaltyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .sectionTitle {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .pointsSection {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .pointsInfo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .starIcon {
+          color: #f59e0b;
+        }
+
+        .pointsText {
+          font-size: 16px;
+          font-weight: 600;
+          color: #ffffff;
+        }
+      }
+
+      .clientLevelBadge {
+        padding: 6px 12px;
+        background-color: #f59e0b;
+        border-radius: 20px;
+
+        span {
+          font-size: 12px;
+          font-weight: 600;
+          color: #000000;
+        }
+      }
+    }
+  }
+
+  .rewardsTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+  }
+
+  .rewardsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    .rewardCard {
+      background-color: #1f1f1f;
+      border: 1px solid #333333;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .rewardIcon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background-color: #2a2a2a;
+        border-radius: 8px;
+        color: #f59e0b;
+      }
+
+      .rewardContent {
+        flex: 1;
+
+        .rewardTitle {
+          font-size: 16px;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0 0 8px 0;
+        }
+
+        .rewardPoints {
+          font-size: 14px;
+          font-weight: 500;
+          color: #888888;
+          margin: 0 0 12px 0;
+        }
+
+        .availableBadge {
+          display: inline-block;
+          padding: 4px 8px;
+          background-color: #f59e0b;
+          border-radius: 12px;
+
+          span {
+            font-size: 11px;
+            font-weight: 600;
+            color: #000000;
+          }
+        }
+
+        .redeemedBadge {
+          display: inline-block;
+          padding: 4px 8px;
+          background-color: #ffffff;
+          border-radius: 12px;
+
+          span {
+            font-size: 11px;
+            font-weight: 600;
+            color: #000000;
+          }
+        }
+      }
+
+      .redeemButton {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: #000000;
+
+        &:hover:not(.disabled) {
+          background: linear-gradient(135deg, #d97706, #b45309);
+        }
+
+        &.disabled {
+          background: #666666;
+          color: #999999;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+.balanceSection {
+  margin-top: 20px;
+}
+
+.balanceCard {
+  border: 1px solid #333333;
+  border-radius: 10px;
+  background: #1f1f1f;
+  padding: 20px;
+}
+
+.balanceValue {
+  font-size: 36px;
+  font-weight: 700;
+  color: #f8d02d;
+  margin: 0 0 8px 0;
+  line-height: 44px;
+}
+
+.balanceHint {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.paginationButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #333333;
+  background: #171717;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginationCurrent {
+  min-width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #333333;
+  background: #0f0f0f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+// Responsive para recompensas
+@media (max-width: 768px) {
+  .rewardsSection {
+    .loyaltyHeader {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+
+      .pointsSection {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+
+    .rewardsGrid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+
+      .rewardCard {
+        padding: 16px;
+      }
+    }
+  }
+}
+
+// Contenido principal
+.mainContent {
+  padding: 20px 30px;
+  width: 100%;
+}
+
+// Sección superior con breadcrumb y botones
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+
+  .breadcrumbSection {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .backButton {
+      width: 18px;
+      height: 18px;
+      border-radius: 0;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+
+    .breadcrumbText {
+      .pageTitle {
+        font-size: 22px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 4px 0;
+        line-height: 27px;
+      }
+
+      .pageSubtitle {
+        font-size: 14px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.75);
+        margin: 0;
+        line-height: 17px;
+      }
+    }
+  }
+
+  .actionButtons {
+    display: flex;
+    gap: 15px;
+
+    .editButton,
+    .deleteButton {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: transparent;
+
+      span {
+        font-size: 14px;
+      }
+    }
+
+    .editButton {
+      border: 1px solid #ffffff;
+      color: #ffffff;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    .deleteButton {
+      border: 1px solid #ed2c2c;
+      color: #ed2c2c;
+
+      &:hover {
+        background-color: rgba(237, 44, 44, 0.08);
+      }
+    }
+  }
+}
+
+// Información principal del cliente
+.clientMainInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 19px;
+  background-color: #1f1f1f;
+  border-radius: 10px;
+  border: 1px solid #333333;
+  margin-bottom: 20px;
+
+  .clientAvatar {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    background: #f9d12f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    .avatarText {
+      font-size: 36px;
+      font-weight: 700;
+      color: #121212;
+    }
+  }
+
+  .clientBasicInfo {
+    flex: 1;
+
+    .clientName {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 10px 0;
+      line-height: 27px;
+    }
+
+    .clientBadges {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+
+      .levelBadge {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+        border: 1px solid #f8d02d;
+        border-radius: 100px;
+        background: rgba(248, 208, 45, 0.1);
+        font-size: 12px;
+        font-weight: 500;
+        color: #f8d02d;
+      }
+
+      .statusBadge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 10px;
+        border-radius: 100px;
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid;
+      }
+    }
+
+    .joinDate {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.75);
+      margin: 0;
+    }
+  }
+
+  .clientStats {
+    display: flex;
+    gap: 15px;
+
+    .statCard {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid #333333;
+      border-radius: 10px;
+      background: #171717;
+      padding: 14px 19px;
+      min-width: 150px;
+
+      .statValue {
+        font-size: 32px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 4px 0;
+        line-height: 39px;
+      }
+
+      .statLabel {
+        font-size: 14px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.75);
+        margin: 0;
+        line-height: 17px;
+      }
+    }
+  }
+}
+
+// Pestañas de navegación
+.tabsContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  background: #1f1f1f;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  .tab {
+    flex: 1;
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    &.active {
+      background: #0f0f0f;
+    }
+  }
+}
+
+// Contenido de las pestañas
+.tabContent {
+  .sectionTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 24px 0;
+  }
+}
+
+// Sección de información personal
+.personalInfoSection {
+  margin-bottom: 40px;
+
+  .personalInfoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    .personalInfoColumn {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .infoItem {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+        background-color: #111111;
+        border-radius: 12px;
+        border: 1px solid #1a1a1a;
+
+        .infoIcon {
+          color: #f59e0b;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+
+        .infoContent {
+          flex: 1;
+
+          .infoLabel {
+            font-size: 12px;
+            color: #888888;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+
+          .infoValue {
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.4;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Sección de preferencias y estadísticas
+.preferencesSection {
+  margin-bottom: 40px;
+
+  .preferencesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    .preferenceCard {
+      padding: 24px;
+      background-color: #111111;
+      border-radius: 12px;
+      border: 1px solid #1a1a1a;
+      text-align: center;
+
+      .preferenceIcon {
+        color: #f59e0b;
+        margin-bottom: 16px;
+      }
+
+      .preferenceContent {
+        .preferenceLabel {
+          font-size: 12px;
+          color: #888888;
+          margin: 0 0 8px 0;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .preferenceValue {
+          font-size: 18px;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0 0 4px 0;
+          line-height: 1.2;
+        }
+
+        .preferenceDetail {
+          font-size: 14px;
+          color: #888888;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+// Sección de saldo disponible
+.balanceSection {
+  .balanceContent {
+    padding: 24px;
+    background-color: #111111;
+    border-radius: 12px;
+    border: 1px solid #1a1a1a;
+    text-align: center;
+
+    .balanceAmount {
+      font-size: 36px;
+      font-weight: 700;
+      color: #10b981;
+      margin: 0 0 8px 0;
+      line-height: 1.2;
+    }
+
+    .balanceDetail {
+      font-size: 14px;
+      color: #888888;
+      margin: 0;
+    }
+  }
+}
+
+// Placeholder para otras pestañas
+.comingSoon {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888888;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+  }
+
+  p {
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+// Estado de carga
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  color: #ffffff;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    color: #ffffff;
+  }
+}
+
+// Estado de error
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  color: #ffffff;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ff6b6b;
+    margin: 0 0 16px 0;
+  }
+
+  p {
+    font-size: 16px;
+    color: #cccccc;
+    margin: 0 0 24px 0;
+  }
+
+  .backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #f59e0b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #d97706;
+    }
+  }
+}
+
+// Estado de no encontrado
+.notFound {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888888;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 24px 0;
+  }
+
+  .backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #f59e0b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #d97706;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+  .mainContent {
+    padding: 16px;
+  }
+
+  .topSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    .actionButtons {
+      align-self: stretch;
+      justify-content: flex-end;
+    }
+  }
+
+  .clientMainInfo {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+
+    .clientStats {
+      justify-content: center;
+      gap: 24px;
+    }
+  }
+
+  .personalInfoGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .preferencesGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 16px;
+
+    .headerTitle {
+      font-size: 16px;
+    }
+
+    .headerIcons {
+      gap: 12px;
+
+      .notificationIcon,
+      .userAvatar {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+
+  .topSection {
+    .breadcrumbText {
+      .pageTitle {
+        font-size: 24px;
+      }
+    }
+
+    .actionButtons {
+      .editButton,
+      .deleteButton {
+        padding: 10px 16px;
+        font-size: 13px;
+
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .clientMainInfo {
+    padding: 24px 20px;
+
+    .clientAvatar {
+      width: 64px;
+      height: 64px;
+
+      .avatarText {
+        font-size: 24px;
+      }
+    }
+
+    .clientBasicInfo {
+      .clientName {
+        font-size: 28px;
+      }
+    }
+
+    .clientStats {
+      flex-wrap: wrap;
+      gap: 16px;
+
+      .statCard {
+        .statValue {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .tabsContainer {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .tab {
+      padding: 12px 16px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+  }
+
+  .personalInfoSection {
+    .personalInfoGrid {
+      .personalInfoColumn {
+        .infoItem {
+          padding: 16px;
+
+          .infoContent {
+            .infoValue {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .preferencesSection {
+    .preferencesGrid {
+      .preferenceCard {
+        padding: 20px 16px;
+
+        .preferenceIcon {
+          width: 32px;
+          height: 32px;
+        }
+
+        .preferenceContent {
+          .preferenceValue {
+            font-size: 16px;
+          }
+
+          .preferenceDetail {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+
+  .balanceSection {
+    .balanceContent {
+      padding: 20px 16px;
+
+      .balanceAmount {
+        font-size: 28px;
+      }
+    }
+  }
+
+  .historyTable {
+    .tableHeader,
+    .tableRow {
+      padding: 12px 16px;
+    }
+
+    .headerCell,
+    .tableCell {
+      font-size: 13px;
+    }
+
+    .methodBadge {
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+
+    .paginationControls {
+      gap: 8px;
+
+      .pageNumbers {
+        gap: 4px;
+      }
+
+      .pageNumber,
+      .paginationButton {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+// Estilos para la tabla de historial
+.historySection {
+  .sectionTitle {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+  }
+}
+
+.historyTable {
+  background-color: #1f1f1f;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  padding: 19px;
+  overflow: hidden;
+
+  .tableHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    .headerCell {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      font-family: 'Inter', sans-serif;
+
+      &:nth-child(1) { width: 129px; }
+      &:nth-child(2) { width: 208px; }
+      &:nth-child(3) { width: 99px; }
+      &:nth-child(4) { width: 126px; }
+      &:nth-child(5) { width: 98px; }
+    }
+  }
+
+  .tableSeparator {
+    height: 1px;
+    background-color: #333333;
+    margin: 0;
+  }
+
+  .tableRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    .tableCell {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+
+      &:nth-child(1) { width: 133px; }
+      &:nth-child(2) { width: 209px; }
+      &:nth-child(3) { width: 99px; }
+      &:nth-child(4) { 
+        width: 127px; 
+        color: #299d58;
+      }
+      &:nth-child(5) { width: 98px; }
+    }
+
+    .methodBadge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 10px;
+      border: 1px solid #299d58;
+      border-radius: 100px;
+      background: rgba(41, 157, 88, 0.1);
+      width: 46px;
+
+      span {
+        font-size: 12px;
+        font-weight: 500;
+        color: #299d58;
+        font-family: 'Inter', sans-serif;
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px 0px;
+    margin-top: 10px;
+
+    .paginationInfo {
+      font-size: 12px;
+      font-weight: 500;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      line-height: 15px;
+    }
+
+    .paginationControls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .paginationButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border: 1px solid #333333;
+        border-radius: 5px;
+        background: transparent;
+        color: #ffffff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover:not(:disabled) {
+          background-color: #2a2a2a;
+          border-color: #444444;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+
+      .pageNumbers {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .pageNumber {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 26px;
+          height: 26px;
+          border: 1px solid #333333;
+          border-radius: 5px;
+          background: transparent;
+          color: #ffffff;
+          font-size: 12px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: #2a2a2a;
+            border-color: #444444;
+          }
+
+          &.active {
+            background-color: #171717;
+            border-color: #333333;
+          }
+        }
+      }
+    }
+  }
+}
