@@ -27,6 +27,8 @@ const Register: React.FC = () => {
   const [validationErrors, setValidationErrors] = useState<{[key: string]: string}>({});
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [verificationLink, setVerificationLink] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [successEmail, setSuccessEmail] = useState<string | null>(null);
 
   // Redirigir si ya está autenticado
   useEffect(() => {
@@ -142,15 +144,11 @@ const Register: React.FC = () => {
       const res = await authService.register(registerData);
       
       setRegistrationSuccess(true);
+      setSuccessMessage(res.message || null);
+      setSuccessEmail(formData.email);
       if (import.meta.env.DEV && res.verification_link) {
         setVerificationLink(res.verification_link);
       }
-      
-      // Redirigir al login después de 2 segundos
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
-      
     } catch (error: any) {
       if (error.response?.status === 400 || error.response?.status === 422) {
         const errorData = error.response.data;
@@ -214,14 +212,20 @@ const Register: React.FC = () => {
           <div className={styles.successMessage}>
             <CheckCircle size={48} className={styles.successIcon} />
             <h2>¡Registro Exitoso!</h2>
-            <p>Tu cuenta ha sido creada correctamente.</p>
-            <p>Te enviamos un email para confirmar tu cuenta y poder iniciar sesión.</p>
+            <p>{successMessage || 'Tu cuenta ha sido creada correctamente.'}</p>
+            {successEmail && <p>Revisá tu correo: {successEmail}</p>}
             {verificationLink && (
               <a href={verificationLink} className={styles.devLink}>
                 Abrir link de verificación (DEV)
               </a>
             )}
-            <p>Serás redirigido al login en unos segundos...</p>
+            <button
+              type="button"
+              className={styles.submitButton}
+              onClick={() => navigate(`/login?registered=1&email=${encodeURIComponent(successEmail || '')}`)}
+            >
+              Ir a iniciar sesión
+            </button>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AlertCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import authService from '../services/authService';
@@ -7,6 +7,7 @@ import styles from './Login.module.scss';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { setUser, setIsAuthenticated, setIsLoading, setError, isLoading, error, isAuthenticated } = useStore();
   
   const [formData, setFormData] = useState({
@@ -17,6 +18,18 @@ const Login: React.FC = () => {
   const [validationErrors, setValidationErrors] = useState<{[key: string]: string}>({});
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const [resendStatus, setResendStatus] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const registered = params.get('registered');
+    const email = params.get('email');
+    if (registered === '1') {
+      setInfoMessage('Te registraste correctamente. Te enviamos un email para validar tu cuenta. Una vez confirmado, vas a poder iniciar sesión.');
+      if (email) {
+        setFormData(prev => ({ ...prev, email }));
+      }
+    }
+  }, [location.search]);
 
   // Redirigir si ya está autenticado
   useEffect(() => {
