@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, AlertCircle, CheckCircle, Info } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import authService from '../services/authService';
 import PhoneInput from '../components/PhoneInput';
 import DateInput from '../components/DateInput';
 import styles from './Register.module.scss';
+import { evaluatePassword, PASSWORD_REQUIREMENTS } from '../utils/passwordStrength';
+
+const REGISTER_DRAFT_KEY = 'becard_register_draft_v1';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -29,6 +32,51 @@ const Register: React.FC = () => {
   const [verificationLink, setVerificationLink] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [successEmail, setSuccessEmail] = useState<string | null>(null);
+  const passwordEval = useMemo(() => evaluatePassword(formData.password), [formData.password]);
+  const strengthLabel = passwordEval.level === 'strong' ? 'Fuerte' : passwordEval.level === 'medium' ? 'Media' : 'Débil';
+  const strengthPercent = Math.max(0, Math.min(100, Math.round((passwordEval.passedCount / passwordEval.total) * 100)));
+  const goToLogin = () => navigate(`/login?registered=1&email=${encodeURIComponent(successEmail || formData.email || '')}`);
+
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(REGISTER_DRAFT_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as Partial<typeof formData>;
+      setFormData((prev) => ({
+        ...prev,
+        ...parsed,
+        password: '',
+        confirmPassword: '',
+      }));
+    } catch {
+      sessionStorage.removeItem(REGISTER_DRAFT_KEY);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const draft = {
+        email: formData.email,
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        nombre_usuario: formData.nombre_usuario,
+        sexo: formData.sexo,
+        telefono: formData.telefono,
+        fecha_nacimiento: formData.fecha_nacimiento,
+      };
+      sessionStorage.setItem(REGISTER_DRAFT_KEY, JSON.stringify(draft));
+    } catch {
+      return;
+    }
+  }, [
+    formData.apellido,
+    formData.email,
+    formData.fecha_nacimiento,
+    formData.nombre,
+    formData.nombre_usuario,
+    formData.sexo,
+    formData.telefono,
+  ]);
 
   // Redirigir si ya está autenticado
   useEffect(() => {
@@ -54,6 +102,12 @@ const Register: React.FC = () => {
       errors.password = 'La contraseña debe tener al menos 8 caracteres';
     } else if (formData.password.length > 72) {
       errors.password = 'La contraseña no puede tener más de 72 caracteres';
+    } else {
+      const evalResult = evaluatePassword(formData.password);
+      if (!evalResult.isValid) {
+        const firstMissing = evalResult.requirements.find((r) => !r.passed);
+        errors.password = firstMissing ? firstMissing.label : 'La contraseña no cumple con los requisitos';
+      }
     }
     
     // Confirm password validation
@@ -146,6 +200,7 @@ const Register: React.FC = () => {
       setRegistrationSuccess(true);
       setSuccessMessage(res.message || null);
       setSuccessEmail(formData.email);
+      sessionStorage.removeItem(REGISTER_DRAFT_KEY);
       if (import.meta.env.DEV && res.verification_link) {
         setVerificationLink(res.verification_link);
       }
@@ -204,33 +259,6 @@ const Register: React.FC = () => {
       }));
     }
   };
-
-  if (registrationSuccess) {
-    return (
-      <div className={styles.registerContainer}>
-        <div className={styles.registerCard}>
-          <div className={styles.successMessage}>
-            <CheckCircle size={48} className={styles.successIcon} />
-            <h2>¡Registro Exitoso!</h2>
-            <p>{successMessage || 'Tu cuenta ha sido creada correctamente.'}</p>
-            {successEmail && <p>Revisá tu correo: {successEmail}</p>}
-            {verificationLink && (
-              <a href={verificationLink} className={styles.devLink}>
-                Abrir link de verificación (DEV)
-              </a>
-            )}
-            <button
-              type="button"
-              className={styles.submitButton}
-              onClick={() => navigate(`/login?registered=1&email=${encodeURIComponent(successEmail || '')}`)}
-            >
-              Ir a iniciar sesión
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.registerContainer}>
@@ -394,9 +422,24 @@ const Register: React.FC = () => {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.label}>
-              Contraseña *
-            </label>
+            <div className={styles.passwordLabelRow}>
+              <label htmlFor="password" className={styles.label}>
+                Contraseña *
+              </label>
+              <div className={styles.tooltipWrap}>
+                <button type="button" className={styles.tooltipButton} aria-label="Requisitos de contraseña">
+                  <Info size={14} />
+                </button>
+                <div className={styles.tooltip} role="tooltip">
+                  <p className={styles.tooltipTitle}>La contraseña debe tener:</p>
+                  <ul className={styles.tooltipList}>
+                    {PASSWORD_REQUIREMENTS.map((req) => (
+                      <li key={req.key}>{req.label}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
             <div className={styles.inputWrapper}>
               <Lock size={18} className={styles.inputIcon} />
               <input
@@ -418,6 +461,36 @@ const Register: React.FC = () => {
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
+            {!!formData.password && (
+              <div className={styles.strengthWrap} aria-live="polite">
+                <div className={styles.strengthHeader}>
+                  <span>Seguridad</span>
+                  <span
+                    className={
+                      passwordEval.level === 'strong'
+                        ? styles.strengthValueStrong
+                        : passwordEval.level === 'medium'
+                          ? styles.strengthValueMedium
+                          : styles.strengthValueWeak
+                    }
+                  >
+                    {strengthLabel}
+                  </span>
+                </div>
+                <div className={styles.strengthBar} aria-hidden="true">
+                  <div
+                    className={`${styles.strengthBarFill} ${
+                      passwordEval.level === 'strong'
+                        ? styles.strengthFillStrong
+                        : passwordEval.level === 'medium'
+                          ? styles.strengthFillMedium
+                          : styles.strengthFillWeak
+                    }`}
+                    style={{ width: `${strengthPercent}%` }}
+                  />
+                </div>
+              </div>
+            )}
             {validationErrors.password && (
               <span className={styles.errorText}>{validationErrors.password}</span>
             )}
@@ -471,6 +544,35 @@ const Register: React.FC = () => {
           </p>
         </div>
       </div>
+      {registrationSuccess && (
+        <div className={styles.successModalOverlay} role="dialog" aria-modal="true" aria-label="Registro exitoso">
+          <div className={styles.successModal}>
+            <div className={styles.successModalHeader}>
+              <CheckCircle size={52} className={styles.successModalIcon} />
+            </div>
+            <h2 className={styles.successModalTitle}>Cuenta creada</h2>
+            <p className={styles.successModalText}>
+              {successMessage || 'Te enviamos un correo para verificar tu cuenta.'}
+            </p>
+            {successEmail && <p className={styles.successModalText}>Revisá tu correo: {successEmail}</p>}
+            {verificationLink && (
+              <p className={styles.successModalText}>
+                <a href={verificationLink} className={styles.devLink}>
+                  Abrir link de verificación (DEV)
+                </a>
+              </p>
+            )}
+            <div className={styles.successModalFooter}>
+              <button type="button" className={styles.secondaryButton} onClick={() => setRegistrationSuccess(false)}>
+                Seguir aquí
+              </button>
+              <button type="button" className={styles.submitButton} onClick={goToLogin}>
+                Ir a iniciar sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -90,6 +90,8 @@ export const useStore = create<AppState>((set, get) => ({
   // Actions
   logout: () => {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('tenant_slug');
     localStorage.removeItem('user');
     set({
       user: null,

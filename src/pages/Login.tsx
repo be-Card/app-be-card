@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import authService from '../services/authService';
+import tenantService from '../services/tenantService';
+import { isSuperAdminUser } from '../utils/roles';
 import styles from './Login.module.scss';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { setUser, setIsAuthenticated, setIsLoading, setError, isLoading, error, isAuthenticated } = useStore();
+  const { setUser, setIsAuthenticated, setIsLoading, setError, isLoading, error, isAuthenticated, user } = useStore();
   
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [validationErrors, setValidationErrors] = useState<{[key: string]: string}>({});
   const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const [resendStatus, setResendStatus] = useState<string | null>(null);
@@ -22,21 +25,24 @@ const Login: React.FC = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const registered = params.get('registered');
+    const verified = params.get('verified');
     const email = params.get('email');
     if (registered === '1') {
       setInfoMessage('Te registraste correctamente. Te enviamos un email para validar tu cuenta. Una vez confirmado, vas a poder iniciar sesión.');
       if (email) {
         setFormData(prev => ({ ...prev, email }));
       }
+    } else if (verified === '1') {
+      setInfoMessage('Cuenta verificada correctamente. Ya podés iniciar sesión.');
     }
   }, [location.search]);
 
   // Redirigir si ya está autenticado
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/dashboard');
+      navigate(isSuperAdminUser(user) ? '/admin' : '/dashboard');
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, user, navigate]);
 
   const validateForm = () => {
     const errors: {[key: string]: string} = {};
@@ -79,17 +85,36 @@ const Login: React.FC = () => {
       localStorage.setItem('user', JSON.stringify(user));
       setUser(user);
       setIsAuthenticated(true);
-      
-      // Redirigir al dashboard
-      navigate('/dashboard');
+
+      if (isSuperAdminUser(user)) {
+        navigate('/admin');
+        return;
+      }
+
+      try {
+        const tenants = await tenantService.getMyTenants();
+        if (tenants.length === 1) {
+          localStorage.setItem('tenant_slug', tenants[0].slug);
+          navigate('/dashboard');
+        } else {
+          navigate('/select-tenant');
+        }
+      } catch {
+        navigate('/select-tenant');
+      }
     } catch (error: any) {
       if (error.response?.status === 401) {
         setError('Email/usuario o contraseña incorrectos');
       } else if (error.response?.status === 403) {
+        const detail = (error.response?.data?.detail || '').toString();
+        if (detail.toLowerCase().includes('pendiente de habilitación')) {
+          navigate(`/pending-activation?email=${encodeURIComponent(formData.email.trim())}`, { replace: true });
+          return;
+        }
         setError('Tu email todavía no está verificado.');
         setInfoMessage('Revisá tu correo para confirmar la cuenta. Si no lo recibiste, podés reenviarlo.');
       } else if (error.response?.status === 400) {
-        setError('Usuario inactivo');
+        setError(error.response?.data?.detail || 'No se pudo iniciar sesión');
       } else {
         setError('Error al iniciar sesión. Intenta nuevamente.');
       }
@@ -178,9 +203,9 @@ const Login: React.FC = () => {
                 <span className={styles.titulo}>Contraseña&nbsp;</span>
                 <span className={styles.titulo2}>*</span>
               </p>
-              <div className={styles.frame480956627}>
+              <div className={`${styles.frame480956627} ${styles.withIcon}`}>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   value={formData.password}
@@ -190,6 +215,15 @@ const Login: React.FC = () => {
                   autoComplete="current-password"
                   disabled={isLoading}
                 />
+                <button
+                  type="button"
+                  className={styles.iconButton}
+                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                  disabled={isLoading}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
               {validationErrors.password && (
                 <span className={styles.errorText}>{validationErrors.password}</span>

@@ -23,6 +23,8 @@ interface UseCervezasReturn {
   // Acciones
   fetchCervezas: (page?: number, filters?: BeerFilters) => Promise<void>;
   fetchEstilos: () => Promise<void>;
+  createEstilo: (data: { estilo: string; descripcion?: string; origen?: string }) => Promise<void>;
+  deleteEstilo: (estiloId: number) => Promise<void>;
   createCerveza: (data: CreateBeerRequest) => Promise<CervezaBackend>;
   updateCerveza: (id: number, data: UpdateBeerRequest) => Promise<CervezaBackend>;
   deleteCerveza: (id: number) => Promise<void>;
@@ -106,6 +108,44 @@ export const useCervezas = (
       setLoading(false);
     }
   }, [fetchCervezas]);
+
+  const createEstilo = useCallback(
+    async (data: { estilo: string; descripcion?: string; origen?: string }) => {
+      try {
+        setLoading(true);
+        setError(null);
+        await CervezaAPI.createEstiloCerveza({
+          estilo: data.estilo,
+          descripcion: data.descripcion ?? null,
+          origen: data.origen ?? null,
+        });
+        await fetchEstilos();
+      } catch (err: any) {
+        setError(err.response?.data?.detail || 'Error al crear el estilo');
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchEstilos]
+  );
+
+  const deleteEstilo = useCallback(
+    async (estiloId: number) => {
+      try {
+        setLoading(true);
+        setError(null);
+        await CervezaAPI.deleteEstiloCerveza(estiloId);
+        await fetchEstilos();
+      } catch (err: any) {
+        setError(err.response?.data?.detail || 'Error al eliminar el estilo');
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchEstilos]
+  );
 
   // Actualizar cerveza
   const updateCerveza = useCallback(async (id: number, data: UpdateBeerRequest): Promise<CervezaBackend> => {
@@ -212,6 +252,8 @@ export const useCervezas = (
     // Acciones
     fetchCervezas,
     fetchEstilos,
+    createEstilo,
+    deleteEstilo,
     createCerveza,
     updateCerveza,
     deleteCerveza,

@@ -27,6 +27,8 @@ const BeersAndEquipment: React.FC = () => {
     updateCerveza: updateBeer,
     deleteCerveza: deleteBeer,
     estilos: beerStyles,
+    createEstilo,
+    deleteEstilo,
     getCervezasActivas
   } = useCervezas();
 
@@ -63,6 +65,9 @@ const BeersAndEquipment: React.FC = () => {
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingBeer, setEditingBeer] = useState<Beer | null>(null);
+  const [isStyleModalOpen, setIsStyleModalOpen] = useState(false);
+  const [styleForm, setStyleForm] = useState({ estilo: '', descripcion: '', origen: '' });
+  const [styleFormError, setStyleFormError] = useState<string | null>(null);
   const [formData, setFormData] = useState<BeerFormData>({
     name: '',
     brewery: '',
@@ -295,6 +300,43 @@ const BeersAndEquipment: React.FC = () => {
     });
     setFormErrors({});
     setIsDragOver(false);
+  };
+
+  const openStyleModal = () => {
+    setStyleForm({ estilo: '', descripcion: '', origen: '' });
+    setStyleFormError(null);
+    setIsStyleModalOpen(true);
+  };
+
+  const closeStyleModal = () => {
+    setIsStyleModalOpen(false);
+    setStyleFormError(null);
+  };
+
+  const handleCreateStyle = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStyleFormError(null);
+    try {
+      await createEstilo({
+        estilo: styleForm.estilo,
+        descripcion: styleForm.descripcion || undefined,
+        origen: styleForm.origen || undefined,
+      });
+      setStyleForm({ estilo: '', descripcion: '', origen: '' });
+    } catch (err: any) {
+      setStyleFormError(err?.response?.data?.detail || 'No se pudo crear el estilo');
+    }
+  };
+
+  const handleDeleteStyle = async (styleId: number) => {
+    const ok = window.confirm('¿Eliminar estilo?');
+    if (!ok) return;
+    setStyleFormError(null);
+    try {
+      await deleteEstilo(styleId);
+    } catch (err: any) {
+      setStyleFormError(err?.response?.data?.detail || 'No se pudo eliminar el estilo');
+    }
   };
 
   const handleInputChange = (field: keyof BeerFormData, value: string) => {
@@ -1476,6 +1518,9 @@ const BeersAndEquipment: React.FC = () => {
                 <div className={styles.formField}>
                   <label className={styles.fieldLabel}>
                     Estilo <span className={styles.required}>*</span>
+                    <button type="button" className={styles.manageStylesButton} onClick={openStyleModal}>
+                      Administrar
+                    </button>
                   </label>
                   <div className={styles.selectWrapper}>
                     <select
@@ -1579,6 +1624,75 @@ const BeersAndEquipment: React.FC = () => {
                 <button type="submit" className={styles.submitButton}>
                   {editingBeer ? 'Guardar Datos' : 'Agregar Cerveza'}
                 </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {isStyleModalOpen && (
+        <div className={styles.modalOverlay} onClick={closeStyleModal}>
+          <div className={styles.modalContainer} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>Administrar estilos</h2>
+              <button className={styles.closeButton} onClick={closeStyleModal}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateStyle} className={styles.modalForm}>
+              {styleFormError && <div className={styles.errorMessage}>{styleFormError}</div>}
+
+              <div className={styles.formGrid}>
+                <div className={styles.formField}>
+                  <label className={styles.fieldLabel}>
+                    Nombre <span className={styles.required}>*</span>
+                  </label>
+                  <input
+                    className={styles.fieldInput}
+                    value={styleForm.estilo}
+                    onChange={(e) => setStyleForm((p) => ({ ...p, estilo: e.target.value }))}
+                    placeholder="NEIPA"
+                  />
+                </div>
+
+                <div className={styles.formField}>
+                  <label className={styles.fieldLabel}>Origen</label>
+                  <input
+                    className={styles.fieldInput}
+                    value={styleForm.origen}
+                    onChange={(e) => setStyleForm((p) => ({ ...p, origen: e.target.value }))}
+                    placeholder="Argentina"
+                  />
+                </div>
+
+                <div className={styles.formField} style={{ gridColumn: '1 / -1' }}>
+                  <label className={styles.fieldLabel}>Descripción</label>
+                  <input
+                    className={styles.fieldInput}
+                    value={styleForm.descripcion}
+                    onChange={(e) => setStyleForm((p) => ({ ...p, descripcion: e.target.value }))}
+                    placeholder="Opcional"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.modalActions}>
+                <button type="submit" className={styles.submitButton}>
+                  Agregar estilo
+                </button>
+              </div>
+
+              <div className={styles.stylesList}>
+                {(beerStyles || []).map((s) => (
+                  <div key={s.id} className={styles.styleRow}>
+                    <div className={styles.styleName}>{s.name}</div>
+                    <button type="button" className={styles.iconButton} onClick={() => handleDeleteStyle(s.id)}>
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                ))}
+                {(beerStyles || []).length === 0 && <div className={styles.emptyStyles}>Sin estilos</div>}
               </div>
             </form>
           </div>

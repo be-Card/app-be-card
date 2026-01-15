@@ -83,6 +83,15 @@ export class CervezaAPI {
     return response.data;
   }
 
+  static async createEstiloCerveza(data: { estilo: string; descripcion?: string | null; origen?: string | null }) {
+    const response = await api.post('/cervezas/estilos', data);
+    return response.data;
+  }
+
+  static async deleteEstiloCerveza(estiloId: number): Promise<void> {
+    await api.delete(`/cervezas/estilos/${estiloId}`);
+  }
+
   // Buscar cervezas por nombre
   static async searchCervezas(query: string): Promise<CervezaBackend[]> {
     const response = await api.get(`/cervezas/search?q=${encodeURIComponent(query)}`);

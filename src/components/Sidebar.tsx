@@ -9,10 +9,12 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  User
+  User,
+  Shield
 } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import styles from './Sidebar.module.scss';
+import { isSuperAdminUser } from '../utils/roles';
 
 const navigationItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
@@ -22,11 +24,13 @@ const navigationItems = [
   { id: 'pricing', label: 'Precios y Promociones', icon: DollarSign, path: '/pricing' },
   { id: 'profile', label: 'Mi Perfil', icon: User, path: '/profile' },
   { id: 'settings', label: 'Configuración', icon: Settings, path: '/settings' },
+  { id: 'admin', label: 'Admin', icon: Shield, path: '/admin' },
 ];
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
-  const { sidebarCollapsed, setSidebarCollapsed } = useStore();
+  const { sidebarCollapsed, setSidebarCollapsed, user } = useStore() as any;
+  const isSuperAdmin = isSuperAdminUser(user);
 
   return (
     <aside className={`${styles.sidebar} ${sidebarCollapsed ? styles.collapsed : ''}`}>
@@ -49,7 +53,12 @@ const Sidebar: React.FC = () => {
 
       <nav className={styles.navigation}>
         <ul className={styles.navList}>
-          {navigationItems.map((item) => {
+          {navigationItems
+            .filter((item) => {
+              if (isSuperAdmin) return item.id === 'admin';
+              return item.id !== 'admin';
+            })
+            .map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
             

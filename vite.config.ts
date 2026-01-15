@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8000',
+        target: 'http://localhost:8000',
         changeOrigin: true,
       },
     },
@@ -31,5 +31,5 @@ export default defineConfig({
       },
     }),
     tsconfigPaths()
-  ],
+  ] as any,
 })

@@ -1637,6 +1637,17 @@
     }
   }
 
+  .manageStylesButton {
+    margin-left: 10px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #f8d02d;
+    padding: 2px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
   .fieldInput {
     background: var(--Gris-Oscuro, #333333);
     border: 1px solid transparent;
@@ -1720,6 +1731,49 @@
     letter-spacing: 0;
     margin-top: 4px;
   }
+}
+
+.stylesList {
+  border-top: 1px solid var(--Gris-Oscuro, #333333);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.styleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.styleName {
+  color: var(--Blanco, #ffffff);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.iconButton {
+  background: transparent;
+  border: none;
+  color: var(--Blanco, #ffffff);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.iconButton:hover {
+  background: var(--Gris-Oscuro, #333333);
+}
+
+.emptyStyles {
+  padding: 10px 12px;
+  opacity: 0.75;
 }
 
 .modalActions {

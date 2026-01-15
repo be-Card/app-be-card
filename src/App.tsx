@@ -16,6 +16,9 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import VerifyEmail from './pages/VerifyEmail';
+import PendingActivation from './pages/PendingActivation';
+import SelectTenant from './pages/SelectTenant';
+import AdminPanel from './pages/AdminPanel';
 import { useStore } from './store/useStore';
 import { ToastProvider } from './contexts/ToastContext';
 import ToastContainer from './components/Toast/Toast';
@@ -29,7 +32,7 @@ function App() {
   }, []); // Solo ejecutar una vez al montar
 
   // Mostrar loading mientras se inicializa
-  if (!isInitialized || isLoading) {
+  if (!isInitialized) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center">
@@ -87,6 +90,22 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/pending-activation"
+            element={
+              <ProtectedRoute requireAuth={false}>
+                <PendingActivation />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/select-tenant"
+            element={
+              <ProtectedRoute>
+                <SelectTenant />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Rutas protegidas (requieren autenticación) */}
           <Route
@@ -107,6 +126,17 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="profile/edit" element={<EditProfile />} />
             <Route path="beers" element={<BeersAndEquipment />} />
+          </Route>
+
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requireTenant={false} allowedRoles={['superadmin']}>
+                <Layout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<AdminPanel />} />
           </Route>
 
           {/* Ruta por defecto - redirigir al login si no está autenticado */}

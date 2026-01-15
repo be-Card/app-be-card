@@ -21,9 +21,13 @@ const api: AxiosInstance = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access_token');
+    const tenantSlug = localStorage.getItem('tenant_slug');
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+    if (tenantSlug) {
+      (config.headers as any)['X-Tenant-Slug'] = tenantSlug;
     }
 
     return config;
