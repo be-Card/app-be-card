@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { getRoleNames, isSuperAdminUser } from '../utils/roles';
+import { isAdminHost, isClientsHost, redirectToClients, redirectSuperadminToAdminWithTokens } from '../utils/subdomains';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -28,10 +29,36 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     );
   }
 
+  const adminHost = isAdminHost();
+  const clientsHost = isClientsHost();
+  const isAuthRedirectRoute = location.pathname === '/auth-redirect';
+  const isLogoutRoute = location.pathname === '/logout';
+
+  if (adminHost) {
+    if (isAuthRedirectRoute || isLogoutRoute) {
+      return <>{children}</>;
+    }
+    if (!isAuthenticated) {
+      redirectToClients('/login');
+      return null;
+    }
+    if (!isSuperAdminUser(user)) {
+      redirectToClients('/');
+      return null;
+    }
+  }
+
   // Para rutas públicas (login, register)
   if (!requireAuth) {
+    if (isLogoutRoute) {
+      return <>{children}</>;
+    }
     // Si ya está autenticado, redirigir al dashboard
     if (isAuthenticated) {
+      if (clientsHost && isSuperAdminUser(user)) {
+        redirectSuperadminToAdminWithTokens();
+        return null;
+      }
       return <Navigate to={isSuperAdminUser(user) ? "/admin" : "/dashboard"} replace />;
     }
     // Si no está autenticado, mostrar la página pública
@@ -44,6 +71,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }
 
   if (requireAuth && isAuthenticated && isSuperAdminUser(user)) {
+    if (clientsHost) {
+      redirectSuperadminToAdminWithTokens();
+      return null;
+    }
     const isAdminRoute = location.pathname === '/admin' || location.pathname.startsWith('/admin/');
     if (!isAdminRoute) {
       return <Navigate to="/admin" replace />;

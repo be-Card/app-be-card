@@ -19,6 +19,8 @@ import VerifyEmail from './pages/VerifyEmail';
 import PendingActivation from './pages/PendingActivation';
 import SelectTenant from './pages/SelectTenant';
 import AdminPanel from './pages/AdminPanel';
+import AuthRedirect from './pages/AuthRedirect';
+import Logout from './pages/Logout';
 import { useStore } from './store/useStore';
 import { ToastProvider } from './contexts/ToastContext';
 import ToastContainer from './components/Toast/Toast';
@@ -55,6 +57,22 @@ function App() {
             element={
               <ProtectedRoute requireAuth={false}>
                 <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/auth-redirect"
+            element={
+              <ProtectedRoute requireAuth={false}>
+                <AuthRedirect />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <ProtectedRoute requireAuth={false}>
+                <Logout />
               </ProtectedRoute>
             }
           />
@@ -137,6 +155,9 @@ function App() {
             }
           >
             <Route index element={<AdminPanel />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="profile/edit" element={<EditProfile />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
 
           {/* Ruta por defecto - redirigir al login si no está autenticado */}

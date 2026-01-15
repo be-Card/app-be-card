@@ -196,7 +196,7 @@ const EditProfile: React.FC = () => {
       
       // Redirigir después de un breve delay
       setTimeout(() => {
-        navigate('/profile');
+        navigate('..');
       }, 2000);
     } catch {
       setMessage({ type: 'error', text: 'Error al actualizar el perfil. Inténtalo de nuevo.' });
@@ -237,7 +237,7 @@ const EditProfile: React.FC = () => {
         </div>
         <button 
           className={styles.backButton}
-          onClick={() => navigate('/profile')}
+          onClick={() => navigate('..')}
           type="button"
         >
           <ArrowLeft size={20} />

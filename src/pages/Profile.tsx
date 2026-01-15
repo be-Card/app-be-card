@@ -89,7 +89,7 @@ const Profile: React.FC = () => {
           <h1 className={styles.title}>Mi Perfil</h1>
           <p className={styles.subtitle}>Gestiona tu información personal y preferencias</p>
         </div>
-        <Link to="/profile/edit" className={styles.editButton}>
+        <Link to="edit" className={styles.editButton}>
           <Edit size={20} />
           <span>Editar</span>
         </Link>

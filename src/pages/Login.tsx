@@ -5,6 +5,7 @@ import { useStore } from '../store/useStore';
 import authService from '../services/authService';
 import tenantService from '../services/tenantService';
 import { isSuperAdminUser } from '../utils/roles';
+import { isClientsHost, redirectSuperadminToAdminWithTokens } from '../utils/subdomains';
 import styles from './Login.module.scss';
 
 const Login: React.FC = () => {
@@ -40,6 +41,10 @@ const Login: React.FC = () => {
   // Redirigir si ya está autenticado
   useEffect(() => {
     if (isAuthenticated) {
+      if (isClientsHost() && isSuperAdminUser(user)) {
+        redirectSuperadminToAdminWithTokens();
+        return;
+      }
       navigate(isSuperAdminUser(user) ? '/admin' : '/dashboard');
     }
   }, [isAuthenticated, user, navigate]);
@@ -87,6 +92,10 @@ const Login: React.FC = () => {
       setIsAuthenticated(true);
 
       if (isSuperAdminUser(user)) {
+        if (isClientsHost()) {
+          redirectSuperadminToAdminWithTokens();
+          return;
+        }
         navigate('/admin');
         return;
       }

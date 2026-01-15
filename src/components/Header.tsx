@@ -3,6 +3,7 @@ import { Bell, Search, Menu, LogOut, User, Settings, AlertTriangle, Clock } from
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { useAlertas } from '../hooks/useAlertas';
+import { isAdminHost, redirectToClients } from '../utils/subdomains';
 import styles from './Header.module.scss';
 
 const Header: React.FC = () => {
@@ -62,6 +63,10 @@ const Header: React.FC = () => {
   const handleLogout = () => {
     logout();
     setShowUserMenu(false);
+    if (isAdminHost()) {
+      navigate('/logout');
+      return;
+    }
     navigate('/login');
   };
 
@@ -212,7 +217,7 @@ const Header: React.FC = () => {
               <button 
                 className={styles.userMenuItem}
                 onClick={() => {
-                  navigate('/profile');
+                  navigate(isAdminHost() ? '/admin/profile' : '/profile');
                   setShowUserMenu(false);
                 }}
               >
@@ -222,7 +227,7 @@ const Header: React.FC = () => {
               <button 
                 className={styles.userMenuItem}
                 onClick={() => {
-                  navigate('/settings');
+                  navigate(isAdminHost() ? '/admin/settings' : '/settings');
                   setShowUserMenu(false);
                 }}
               >
