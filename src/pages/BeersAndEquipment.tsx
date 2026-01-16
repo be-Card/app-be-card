@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Search, Filter, Grid, List, Plus, Edit, Trash2, ChevronDown, ChevronLeft, ChevronRight, RotateCcw, PowerOff, Power, X, Upload } from 'lucide-react';
 import styles from './BeersAndEquipment.module.scss';
 import { useCervezas } from '../hooks/useCervezas';
@@ -17,6 +18,7 @@ import {
 } from '../utils/mappers';
 
 const BeersAndEquipment: React.FC = () => {
+  const location = useLocation();
   // Hooks para datos del backend
   const {
     cervezas: beers,
@@ -82,6 +84,13 @@ const BeersAndEquipment: React.FC = () => {
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const tab = new URLSearchParams(location.search).get('tab');
+    if (tab === 'cervezas' || tab === 'canillas') {
+      setActiveTab(tab);
+    }
+  }, [location.search]);
 
   const [isEquipmentModalOpen, setIsEquipmentModalOpen] = useState(false);
   const [equipmentForm, setEquipmentForm] = useState<{
@@ -791,7 +800,7 @@ const BeersAndEquipment: React.FC = () => {
           </div>
           <div className={styles.detailRow}>
             <span className={styles.label}>Precio/L</span>
-            <span className={styles.price}>{formatearPrecio((beer as any).currentPrice || 0)}</span>
+            <span className={styles.price}>{formatearPrecio(beer.pricePerLiter || 0)}</span>
           </div>
           <div className={styles.detailRow}>
             <span className={styles.label}>Stock</span>
@@ -881,7 +890,7 @@ const BeersAndEquipment: React.FC = () => {
               </td>
               <td>{beer.abv}%</td>
               <td>{beer.ibu}</td>
-              <td className={styles.priceCell}>{formatearPrecio((beer as any).currentPrice || 0)}</td>
+              <td className={styles.priceCell}>{formatearPrecio(beer.pricePerLiter || 0)}</td>
               <td className={`${styles.stockCell} ${styles[getStockColor((beer as any).stock || 0)]}`}>
                 {(beer as any).stock || 0}L
               </td>

@@ -98,8 +98,9 @@ class ClientService {
     const payload = {
       name: `${clientData.firstName} ${clientData.lastName}`.trim(),
       email: clientData.email,
-      phone: clientData.phone || undefined,
-      address: clientData.address || undefined,
+      age: clientData.age,
+      phone: clientData.phone?.trim() || undefined,
+      address: clientData.address?.trim() || undefined,
       gender: clientData.gender,
       birthDate: clientData.birthDate,
     };

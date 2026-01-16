@@ -74,11 +74,6 @@ const Profile: React.FC = () => {
     return formatted.charAt(0).toUpperCase() + formatted.slice(1);
   };
 
-  const formatJoinDate = (iso?: string | null) => {
-    if (!iso) return '—';
-    return new Date(iso).toLocaleDateString('es-ES');
-  };
-
   const roleLabel = user.roles?.length ? user.roles.join(', ') : 'Sin rol';
 
   return (
@@ -227,51 +222,6 @@ const Profile: React.FC = () => {
                 </label>
                 <div className={styles.inputField}>
                   <span>{user.direccion || '—'}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.divider}></div>
-
-          {/* Professional Information */}
-          <div className={styles.infoSection}>
-            <h3 className={styles.sectionTitle}>Información Profesional</h3>
-            
-            <div className={styles.formGrid}>
-              <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>
-                  Puesto <span className={styles.required}>*</span>
-                </label>
-                <div className={styles.inputField}>
-                  <span>{user.professional.puesto || '—'}</span>
-                </div>
-              </div>
-
-              <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>
-                  Departamento <span className={styles.required}>*</span>
-                </label>
-                <div className={styles.inputField}>
-                  <span>{user.professional.departamento || '—'}</span>
-                </div>
-              </div>
-
-              <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>
-                  Fecha de Ingreso <span className={styles.required}>*</span>
-                </label>
-                <div className={styles.inputField}>
-                  <span>{formatJoinDate(user.professional.fecha_ingreso)}</span>
-                </div>
-              </div>
-
-              <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>
-                  ID de Empleado <span className={styles.required}>*</span>
-                </label>
-                <div className={styles.inputField}>
-                  <span>{user.professional.id_empleado || '—'}</span>
                 </div>
               </div>
             </div>

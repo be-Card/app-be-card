@@ -464,7 +464,7 @@ const Dashboard: React.FC = () => {
           <div className={styles.canillasSection}>
             <div className={styles.sectionHeader}>
               <h3 className={styles.sectionTitle}>Estado de Canillas</h3>
-              <Link to="/beers" className={styles.manageBtn} style={{ textDecoration: 'none' }}>
+              <Link to="/beers?tab=canillas" className={styles.manageBtn} style={{ textDecoration: 'none' }}>
                 <Settings size={20} />
                 <span>Gestionar Canillas</span>
               </Link>

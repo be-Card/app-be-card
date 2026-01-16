@@ -67,13 +67,17 @@ export class CervezaAPI {
 
   // Obtener stock total de una cerveza
   static async getStockTotal(cervezaId: number): Promise<number> {
-    const response = await api.get(`/cervezas/${cervezaId}/stock-total`);
+    const response = await api.get(`/cervezas/${cervezaId}/stock`);
     return response.data.stock_total;
   }
 
   // Crear nuevo precio para una cerveza
   static async createPrecioCerveza(data: CreateBeerPriceRequest): Promise<PrecioCervezaBackend> {
-    const response = await api.post('/cervezas/precios', data);
+    const response = await api.post(`/cervezas/${data.cerveza_id}/precios`, {
+      id_cerveza: data.cerveza_id,
+      precio: data.precio,
+      motivo: null,
+    });
     return response.data;
   }
 

@@ -42,8 +42,5 @@ describe('Profile', () => {
     });
 
     expect(screen.getByText('Av. Corrientes 1234, CABA')).toBeInTheDocument();
-    expect(screen.getByText('Gerente General')).toBeInTheDocument();
-    expect(screen.getByText('Administración')).toBeInTheDocument();
   });
 });
-

@@ -175,13 +175,20 @@ const PricingAndPromotions: React.FC = () => {
     const today = new Date();
     const withTime = (time: string, addDays: number = 0) => {
       if (!time) return null;
-      const [hh, mm] = time.split(':');
+      const [hhStr, mmStr] = time.split(':');
+      const hh = Number(hhStr);
+      const mm = Number(mmStr);
+      if (!Number.isFinite(hh) || !Number.isFinite(mm)) return null;
       const d = new Date(today);
       d.setDate(d.getDate() + addDays);
-      d.setHours(Number(hh), Number(mm), 0, 0);
-      return d.toISOString();
+      const yyyy = d.getFullYear();
+      const MM = String(d.getMonth() + 1).padStart(2, '0');
+      const DD = String(d.getDate()).padStart(2, '0');
+      const HH = String(hh).padStart(2, '0');
+      const MIN = String(mm).padStart(2, '0');
+      return `${yyyy}-${MM}-${DD}T${HH}:${MIN}:00`;
     };
-    const startIso = withTime(startTime) || new Date().toISOString();
+    const startIso = withTime(startTime) || withTime('00:00')!;
     if (!endTime) return { startIso, endIso: null as string | null };
     const startParts = startTime ? startTime.split(':').map(Number) : null;
     const endParts = endTime.split(':').map(Number);

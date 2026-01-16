@@ -11,10 +11,6 @@ interface EditProfileFormData {
   email: string;
   phone: string;
   address: string;
-  position: string;
-  department: string;
-  startDate: string;
-  employeeId: string;
 }
 
 interface FormErrors {
@@ -23,10 +19,6 @@ interface FormErrors {
   email?: string;
   phone?: string;
   address?: string;
-  position?: string;
-  department?: string;
-  startDate?: string;
-  employeeId?: string;
 }
 
 const EditProfile: React.FC = () => {
@@ -39,10 +31,6 @@ const EditProfile: React.FC = () => {
     email: '',
     phone: '',
     address: '',
-    position: '',
-    department: '',
-    startDate: '',
-    employeeId: ''
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -63,10 +51,6 @@ const EditProfile: React.FC = () => {
           email: me.email || '',
           phone: me.telefono || '',
           address: me.direccion || '',
-          position: me.professional?.puesto || '',
-          department: me.professional?.departamento || '',
-          startDate: me.professional?.fecha_ingreso || '',
-          employeeId: me.professional?.id_empleado || '',
         });
       } catch {
         setMessage({ type: 'error', text: 'Error al cargar los datos del usuario' });
@@ -119,22 +103,6 @@ const EditProfile: React.FC = () => {
       newErrors.address = 'La dirección es requerida';
     }
 
-    if (!formData.position.trim()) {
-      newErrors.position = 'El puesto es requerido';
-    }
-
-    if (!formData.department.trim()) {
-      newErrors.department = 'El departamento es requerido';
-    }
-
-    if (!formData.startDate) {
-      newErrors.startDate = 'La fecha de ingreso es requerida';
-    }
-
-    if (!formData.employeeId.trim()) {
-      newErrors.employeeId = 'El ID de empleado es requerido';
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -175,10 +143,10 @@ const EditProfile: React.FC = () => {
         apellidos: formData.lastName.trim(),
         telefono: formData.phone.trim() || null,
         direccion: formData.address.trim() || null,
-        puesto: formData.position.trim() || null,
-        departamento: formData.department.trim() || null,
-        fecha_ingreso: formData.startDate || null,
-        id_empleado: formData.employeeId.trim() || null,
+        puesto: profile.professional?.puesto ?? null,
+        departamento: profile.professional?.departamento ?? null,
+        fecha_ingreso: profile.professional?.fecha_ingreso ?? null,
+        id_empleado: profile.professional?.id_empleado ?? null,
       };
 
       const updated = await profileService.updateMe(updateData);
@@ -435,73 +403,6 @@ const EditProfile: React.FC = () => {
                     />
                   </div>
                   {errors.address && <span className={styles.errorMessage}>{errors.address}</span>}
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel}>
-                    <span className={styles.labelText}>Puesto </span>
-                    <span className={styles.required}>*</span>
-                  </label>
-                  <div className={styles.inputField}>
-                    <input
-                      type="text"
-                      value={formData.position}
-                      onChange={(e) => handleInputChange('position', e.target.value)}
-                      className={errors.position ? styles.error : ''}
-                      placeholder="Gerente General"
-                    />
-                  </div>
-                  {errors.position && <span className={styles.errorMessage}>{errors.position}</span>}
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel}>
-                    <span className={styles.labelText}>Departamento </span>
-                    <span className={styles.required}>*</span>
-                  </label>
-                  <div className={styles.inputField}>
-                    <input
-                      type="text"
-                      value={formData.department}
-                      onChange={(e) => handleInputChange('department', e.target.value)}
-                      className={errors.department ? styles.error : ''}
-                      placeholder="Administración"
-                    />
-                  </div>
-                  {errors.department && <span className={styles.errorMessage}>{errors.department}</span>}
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel}>
-                    <span className={styles.labelText}>Fecha de Ingreso </span>
-                    <span className={styles.required}>*</span>
-                  </label>
-                  <div className={styles.inputField}>
-                    <input
-                      type="date"
-                      value={formData.startDate}
-                      onChange={(e) => handleInputChange('startDate', e.target.value)}
-                      className={errors.startDate ? styles.error : ''}
-                    />
-                  </div>
-                  {errors.startDate && <span className={styles.errorMessage}>{errors.startDate}</span>}
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel}>
-                    <span className={styles.labelText}>ID de Empleado </span>
-                    <span className={styles.required}>*</span>
-                  </label>
-                  <div className={styles.inputField}>
-                    <input
-                      type="text"
-                      value={formData.employeeId}
-                      onChange={(e) => handleInputChange('employeeId', e.target.value)}
-                      className={errors.employeeId ? styles.error : ''}
-                      placeholder="EMP-001"
-                    />
-                  </div>
-                  {errors.employeeId && <span className={styles.errorMessage}>{errors.employeeId}</span>}
                 </div>
               </div>
             </div>
