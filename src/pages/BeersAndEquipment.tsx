@@ -76,7 +76,7 @@ const BeersAndEquipment: React.FC = () => {
     abv: '',
     ibu: '',
     pricePerLiter: '',
-    stock: '',
+    stock: '0',
     photo: null
   });
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
@@ -238,8 +238,8 @@ const BeersAndEquipment: React.FC = () => {
           country: (beer as any).country || 'Argentina',
           abv: beer.abv?.toString() || '',
           ibu: beer.ibu?.toString() || '',
-          pricePerLiter: (beer as any).currentPrice?.toString() || '0',
-          stock: (beer as any).stock?.toString() || '0',
+          pricePerLiter: beer.pricePerLiter?.toString() || '0',
+          stock: (beer.stockBase ?? 0).toString(),
           photo: null
         });
         setFormErrors({});
@@ -278,7 +278,7 @@ const BeersAndEquipment: React.FC = () => {
       abv: '',
       ibu: '',
       pricePerLiter: '',
-      stock: '',
+      stock: '0',
       photo: null
     });
     setFormErrors({});
@@ -295,7 +295,7 @@ const BeersAndEquipment: React.FC = () => {
       abv: '',
       ibu: '',
       pricePerLiter: '',
-      stock: '',
+      stock: '0',
       photo: null
     });
     setFormErrors({});
@@ -404,7 +404,6 @@ const BeersAndEquipment: React.FC = () => {
     if (!formData.abv?.trim()) errors.abv = 'El ABV es obligatorio';
     if (!formData.ibu?.trim()) errors.ibu = 'El IBU es obligatorio';
     if (!formData.pricePerLiter?.trim()) errors.pricePerLiter = 'El precio es obligatorio';
-    if (!formData.stock?.trim()) errors.stock = 'El stock es obligatorio';
 
     // Validate numeric fields
     if (formData.abv && (isNaN(Number(formData.abv)) || Number(formData.abv) < 0)) {
@@ -459,7 +458,10 @@ const BeersAndEquipment: React.FC = () => {
             abv: parseFloat(formData.abv),
             ibu: parseInt(formData.ibu),
             activo: editingBeer.active, // Mantener el estado actual
-            imagen: imagenUrl
+            imagen: imagenUrl,
+            precio_nuevo: Number(formData.pricePerLiter),
+            motivo_precio: 'Actualización desde la app',
+            stock_base: Number(formData.stock),
           };
           await updateBeer(editingBeer.id, updateData);
         } else {
@@ -472,7 +474,9 @@ const BeersAndEquipment: React.FC = () => {
             abv: parseFloat(formData.abv),
             ibu: parseInt(formData.ibu),
             activo: true,
-            imagen: imagenUrl
+            imagen: imagenUrl,
+            precio_inicial: Number(formData.pricePerLiter),
+            stock_base: Number(formData.stock),
           };
           await createBeer(createData);
         }
@@ -556,7 +560,8 @@ const BeersAndEquipment: React.FC = () => {
     const ultima_limpieza = equipmentForm.ultima_limpieza || null;
     const proxima_limpieza = equipmentForm.proxima_limpieza || null;
 
-    if (!id_barril || !id_estado_equipo || !id_punto_de_venta || isNaN(capacidad_actual)) {
+    const requierePuntoVenta = puntosVenta.length > 0;
+    if (!id_barril || !id_estado_equipo || (requierePuntoVenta && !id_punto_de_venta) || isNaN(capacidad_actual)) {
       setEquipmentFormError('Completá los campos obligatorios');
       return;
     }
@@ -567,7 +572,7 @@ const BeersAndEquipment: React.FC = () => {
         id_barril,
         id_estado_equipo,
         id_cerveza,
-        id_punto_de_venta,
+        id_punto_de_venta: requierePuntoVenta ? id_punto_de_venta : null,
         temperatura_actual,
         capacidad_actual,
         ultima_limpieza,
@@ -1605,15 +1610,15 @@ const BeersAndEquipment: React.FC = () => {
                 {/* Stock */}
                 <div className={styles.formField}>
                   <label className={styles.fieldLabel}>
-                    Stock (L) <span className={styles.required}>*</span>
+                    Stock (L)
                   </label>
                   <input
                     type="number"
                     min="0"
                     value={formData.stock}
-                    onChange={(e) => handleInputChange('stock', e.target.value)}
                     placeholder="Escribe aquí..."
                     className={`${styles.fieldInput} ${formErrors.stock ? styles.error : ''}`}
+                    onChange={(e) => handleInputChange('stock', e.target.value)}
                   />
                   {formErrors.stock && <span className={styles.errorText}>{formErrors.stock}</span>}
                 </div>
@@ -1735,6 +1740,7 @@ const BeersAndEquipment: React.FC = () => {
                       value={equipmentForm.id_barril}
                       onChange={(e) => setEquipmentForm((p) => ({ ...p, id_barril: e.target.value }))}
                     >
+                      {barrelTypes.length === 0 && <option value="">Sin tipos de barril</option>}
                       {barrelTypes.map((b) => (
                         <option key={b.id} value={b.id}>
                           {b.capacity}L
@@ -1755,6 +1761,7 @@ const BeersAndEquipment: React.FC = () => {
                       value={equipmentForm.id_estado_equipo}
                       onChange={(e) => setEquipmentForm((p) => ({ ...p, id_estado_equipo: e.target.value }))}
                     >
+                      {equipmentStates.length === 0 && <option value="">Sin estados</option>}
                       {equipmentStates.map((s) => (
                         <option key={s.id} value={s.id}>
                           {s.name}
@@ -1839,7 +1846,9 @@ const BeersAndEquipment: React.FC = () => {
                       value={equipmentForm.id_punto_de_venta}
                       onChange={(e) => setEquipmentForm((p) => ({ ...p, id_punto_de_venta: e.target.value }))}
                     >
-                      <option value="">Selecciona un punto de venta</option>
+                      <option value="">
+                        {puntosVenta.length === 0 ? "Se creará 'Principal' automáticamente" : 'Selecciona un punto de venta'}
+                      </option>
                       {puntosVenta.map((pv) => (
                         <option key={pv.id} value={pv.id}>
                           {pv.nombre}
@@ -1871,7 +1880,7 @@ const BeersAndEquipment: React.FC = () => {
                 </div>
               </div>
 
-              <button type="submit" className={styles.submitButton}>
+              <button type="submit" className={styles.equipmentSubmitButton}>
                 Agregar Canilla
               </button>
             </form>

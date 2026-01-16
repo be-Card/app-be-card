@@ -257,6 +257,7 @@ export interface CervezaBackend {
   estilos: TipoEstiloCervezaBackend[];
   precio_actual?: number;
   stock_total?: number;
+  stock_base?: number;
 }
 
 export interface PrecioCervezaBackend {
@@ -323,6 +324,7 @@ export interface Beer {
   ibu: number;
   pricePerLiter: number;
   stock: number;
+  stockBase?: number;
   status: 'Activa' | 'Inactiva';
   description?: string;
   styles?: string[];
@@ -394,9 +396,14 @@ export interface CreateBeerRequest {
   activo: boolean;  // Cambiado de activa a activo
   estilos_ids: number[];
   imagen?: string;  // URL o base64 de la imagen
+  precio_inicial?: number;
+  stock_base?: number;
 }
 
-export type UpdateBeerRequest = Partial<CreateBeerRequest>;
+export type UpdateBeerRequest = Partial<CreateBeerRequest> & {
+  precio_nuevo?: number;
+  motivo_precio?: string;
+};
 
 export interface CreateBeerPriceRequest {
   cerveza_id: number;

@@ -41,7 +41,8 @@
     font-weight: 600;
 
     &.active {
-      background: var(--Fondo-Oscuro, #0f0f0f);
+      background: #f1c112;
+      color: #0f0f0f;
     }
 
     &.inactive {
@@ -1805,6 +1806,30 @@
       cursor: not-allowed;
     }
   }
+
+  .equipmentSubmitButton {
+    background: #f1c112;
+    border: none;
+    border-radius: 10px;
+    color: #0f0f0f;
+    font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0;
+    padding: 12px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
 }
 
 // Modal responsive styles
@@ -1851,6 +1876,12 @@
       width: 100%;
       padding: 14px 20px;
       background: linear-gradient(270deg, #f06f26 0%, #f1c112 100%);
+    }
+
+    .equipmentSubmitButton {
+      width: 100%;
+      padding: 14px 20px;
+      background: #f1c112;
     }
   }
 }

@@ -26,6 +26,7 @@ export const mapCervezaToFrontend = (cerveza: CervezaBackend): Beer => {
     ibu: Number((cerveza as any).ibu ?? 0),
     pricePerLiter: cerveza.precio_actual || 0,
     stock: cerveza.stock_total || 0,
+    stockBase: (cerveza as any).stock_base ?? 0,
     status: cerveza.activo ? 'Activa' : 'Inactiva',
     description: cerveza.descripcion,
     styles: cerveza.estilos?.map(estilo => estilo.estilo) || [],  // Cambiado de nombre a estilo
