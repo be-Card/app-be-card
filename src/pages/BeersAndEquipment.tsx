@@ -1860,7 +1860,7 @@ const BeersAndEquipment: React.FC = () => {
                       </option>
                       {puntosVenta.map((pv) => (
                         <option key={pv.id} value={pv.id}>
-                          {pv.nombre}
+                          {pv.codigo_punto_venta ? `${pv.codigo_punto_venta} - ${pv.nombre}` : pv.nombre}
                         </option>
                       ))}
                     </select>

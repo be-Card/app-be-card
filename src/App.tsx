@@ -21,6 +21,7 @@ import SelectTenant from './pages/SelectTenant';
 import AdminPanel from './pages/AdminPanel';
 import AuthRedirect from './pages/AuthRedirect';
 import Logout from './pages/Logout';
+import Cards from './pages/Cards';
 import { useStore } from './store/useStore';
 import { ToastProvider } from './contexts/ToastContext';
 import ToastContainer from './components/Toast/Toast';
@@ -144,6 +145,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="profile/edit" element={<EditProfile />} />
             <Route path="beers" element={<BeersAndEquipment />} />
+            <Route path="cards" element={<Cards />} />
           </Route>
 
           <Route

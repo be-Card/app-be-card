@@ -42,6 +42,16 @@ export class EquipoAPI {
     return response.data;
   }
 
+  static async getEquipoByIdExt(idExt: string): Promise<EquipmentDetailResponse> {
+    const response = await api.get(`/equipos/by-id-ext/${encodeURIComponent(idExt)}`);
+    return response.data;
+  }
+
+  static async getEquipoByCode(code: string): Promise<EquipmentDetailResponse> {
+    const response = await api.get(`/equipos/by-code/${encodeURIComponent(code)}`);
+    return response.data;
+  }
+
   // Crear nuevo equipo
   static async createEquipo(data: CreateEquipmentRequest): Promise<EquipoBackend> {
     const response = await api.post('/equipos/', data);

@@ -10,7 +10,8 @@ import {
   ChevronLeft,
   ChevronRight,
   User,
-  Shield
+  Shield,
+  CreditCard
 } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import styles from './Sidebar.module.scss';
@@ -19,6 +20,7 @@ import { isSuperAdminUser } from '../utils/roles';
 const navigationItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
   { id: 'clients', label: 'Clientes', icon: Users, path: '/clients' },
+  { id: 'cards', label: 'Tarjetas', icon: CreditCard, path: '/cards' },
   { id: 'beers', label: 'Cervezas y Equipos', icon: Beer, path: '/beers' },
   { id: 'reports', label: 'Reportes', icon: FileText, path: '/reports' },
   { id: 'pricing', label: 'Precios y Promociones', icon: DollarSign, path: '/pricing' },

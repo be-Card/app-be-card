@@ -288,6 +288,8 @@ export interface EquipoBackend {
   id_ext: string;
   creado_el: string;
   nombre_equipo: string | null;
+  codigo_equipo?: string | null;
+  tenant_id?: number | null;
   id_barril: number;
   capacidad_actual: number;
   temperatura_actual: number | string | null;
@@ -302,6 +304,7 @@ export interface EquipoBackend {
     id: number;
     id_ext: string;
     nombre: string;
+    codigo_punto_venta?: string | null;
   } | null;
   cerveza_actual?: CervezaBackend | null;
   nivel_barril_porcentaje: number;
@@ -312,6 +315,7 @@ export interface PuntoVentaListItem {
   id: number;
   id_ext: string;
   nombre: string;
+  codigo_punto_venta?: string | null;
 }
 
 // Tipos de frontend (para componentes)

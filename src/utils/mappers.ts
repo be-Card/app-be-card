@@ -68,12 +68,17 @@ export const mapEquipoToFrontend = (equipo: EquipoBackend): Canilla => {
   const barrelCapacity = equipo.barril?.capacidad || 0;
   const currentVolume = Number((equipo as any).volumen_actual ?? 0);
   const allowsSales = Boolean(equipo.estado?.permite_ventas);
-  const nombreEquipo = equipo.nombre_equipo || `Canilla ${equipo.id}`;
+  const codigo = equipo.codigo_equipo || null;
+  const nombreBase = equipo.nombre_equipo || `Canilla ${equipo.id}`;
+  const nombreEquipo = codigo ? `${codigo} - ${nombreBase}` : nombreBase;
+  const pvNombre = equipo.punto_venta?.nombre || 'Sin ubicación';
+  const pvCodigo = equipo.punto_venta?.codigo_punto_venta || null;
+  const ubicacion = pvCodigo ? `${pvCodigo} - ${pvNombre}` : pvNombre;
   
   return {
     id: equipo.id,
     name: nombreEquipo,
-    location: equipo.punto_venta?.nombre || 'Sin ubicación',
+    location: ubicacion,
     status: allowsSales ? 'En Línea' : 'Fuera de Línea',
     currentBeer: equipo.cerveza_actual?.nombre || 'Sin cerveza',
     barrelLevel: Number((equipo as any).nivel_barril_porcentaje ?? 0),
