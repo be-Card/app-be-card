@@ -19,9 +19,9 @@ interface PhoneInputProps {
 }
 
 const countries: Country[] = [
+  { code: 'AR', name: 'Argentina', flag: '🇦🇷', dialCode: '+54' },
   { code: 'US', name: 'Estados Unidos', flag: '🇺🇸', dialCode: '+1' },
   { code: 'MX', name: 'México', flag: '🇲🇽', dialCode: '+52' },
-  { code: 'AR', name: 'Argentina', flag: '🇦🇷', dialCode: '+54' },
   { code: 'ES', name: 'España', flag: '🇪🇸', dialCode: '+34' },
   { code: 'CO', name: 'Colombia', flag: '🇨🇴', dialCode: '+57' },
   { code: 'PE', name: 'Perú', flag: '🇵🇪', dialCode: '+51' },
@@ -46,7 +46,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   disabled = false,
   error = false
 }) => {
-  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
+  const [selectedCountry, setSelectedCountry] = useState<Country>(() => countries.find((c) => c.code === 'AR') || countries[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Save, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
@@ -11,6 +11,7 @@ interface EditProfileFormData {
   email: string;
   phone: string;
   address: string;
+  avatar: string;
 }
 
 interface FormErrors {
@@ -21,21 +22,101 @@ interface FormErrors {
   address?: string;
 }
 
+const readFileAsDataURL = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('READ_ERROR'));
+    reader.onload = () => resolve(String(reader.result || ''));
+    reader.readAsDataURL(file);
+  });
+
+const loadImage = (src: string): Promise<HTMLImageElement> =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('IMAGE_ERROR'));
+    img.src = src;
+  });
+
+const canvasToBlob = (canvas: HTMLCanvasElement, type: string, quality: number): Promise<Blob> =>
+  new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) reject(new Error('BLOB_ERROR'));
+        else resolve(blob);
+      },
+      type,
+      quality
+    );
+  });
+
+const compressImageToDataURL = async (
+  file: File,
+  opts: { maxBytes: number; maxDimension: number; mime: string }
+): Promise<string> => {
+  const objectUrl = URL.createObjectURL(file);
+  try {
+    const img = await loadImage(objectUrl);
+    let width = img.naturalWidth || img.width;
+    let height = img.naturalHeight || img.height;
+
+    const scale = Math.min(1, opts.maxDimension / Math.max(width, height));
+    width = Math.max(1, Math.round(width * scale));
+    height = Math.max(1, Math.round(height * scale));
+
+    let quality = 0.9;
+    let attempt = 0;
+    let currentWidth = width;
+    let currentHeight = height;
+
+    while (attempt < 14) {
+      const canvas = document.createElement('canvas');
+      canvas.width = currentWidth;
+      canvas.height = currentHeight;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('CANVAS_ERROR');
+
+      ctx.drawImage(img, 0, 0, currentWidth, currentHeight);
+
+      const blob = await canvasToBlob(canvas, opts.mime, quality);
+      if (blob.size <= opts.maxBytes) {
+        return await readFileAsDataURL(new File([blob], file.name, { type: opts.mime }));
+      }
+
+      if (quality > 0.55) {
+        quality = Math.max(0.55, quality - 0.08);
+      } else {
+        currentWidth = Math.max(1, Math.round(currentWidth * 0.88));
+        currentHeight = Math.max(1, Math.round(currentHeight * 0.88));
+      }
+
+      attempt += 1;
+    }
+
+    throw new Error('TOO_LARGE');
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
+};
+
 const EditProfile: React.FC = () => {
   const navigate = useNavigate();
   const { user: storeUser, setUser } = useStore();
   const [profile, setProfile] = useState<ProfileMeResponse | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState<EditProfileFormData>({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
     address: '',
+    avatar: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAvatarProcessing, setIsAvatarProcessing] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
@@ -51,6 +132,7 @@ const EditProfile: React.FC = () => {
           email: me.email || '',
           phone: me.telefono || '',
           address: me.direccion || '',
+          avatar: me.avatar || '',
         });
       } catch {
         setMessage({ type: 'error', text: 'Error al cargar los datos del usuario' });
@@ -143,6 +225,7 @@ const EditProfile: React.FC = () => {
         apellidos: formData.lastName.trim(),
         telefono: formData.phone.trim() || null,
         direccion: formData.address.trim() || null,
+        avatar: formData.avatar ? formData.avatar : null,
         puesto: profile.professional?.puesto ?? null,
         departamento: profile.professional?.departamento ?? null,
         fecha_ingreso: profile.professional?.fecha_ingreso ?? null,
@@ -159,6 +242,7 @@ const EditProfile: React.FC = () => {
           nombres: updated.nombres,
           apellidos: updated.apellidos,
           telefono: updated.telefono || undefined,
+          avatar: (updated as any).avatar ?? storeUser.avatar,
         });
       }
       
@@ -229,10 +313,73 @@ const EditProfile: React.FC = () => {
           <div className={styles.profileCard}>
             <div className={styles.avatarSection}>
               <div className={styles.avatar}>
-                <span className={styles.initials}>
-                  {getInitials(formData.firstName, formData.lastName)}
-                </span>
+                {formData.avatar ? (
+                  <img src={formData.avatar} alt="Avatar" className={styles.avatarImage} />
+                ) : (
+                  <span className={styles.initials}>
+                    {getInitials(formData.firstName, formData.lastName)}
+                  </span>
+                )}
               </div>
+              <button
+                type="button"
+                className={styles.changeAvatarButton}
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isSubmitting || isAvatarProcessing}
+              >
+                {isAvatarProcessing ? 'Procesando…' : 'Cambiar foto'}
+              </button>
+              {formData.avatar && (
+                <button
+                  type="button"
+                  className={styles.removeAvatarButton}
+                  onClick={() => setFormData((p) => ({ ...p, avatar: '' }))}
+                  disabled={isSubmitting || isAvatarProcessing}
+                >
+                  Quitar foto
+                </button>
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  e.currentTarget.value = '';
+
+                  if (!file.type.startsWith('image/')) {
+                    setMessage({ type: 'error', text: 'Formato de imagen inválido.' });
+                    return;
+                  }
+
+                  if (file.size > 10_000_000) {
+                    setMessage({ type: 'error', text: 'La imagen es demasiado grande (máx. 10MB).' });
+                    return;
+                  }
+
+                  try {
+                    setIsAvatarProcessing(true);
+                    setMessage(null);
+
+                    const dataUrl =
+                      file.size <= 380_000
+                        ? await readFileAsDataURL(file)
+                        : await compressImageToDataURL(file, {
+                            maxBytes: 380_000,
+                            maxDimension: 512,
+                            mime: 'image/jpeg',
+                          });
+
+                    setFormData((p) => ({ ...p, avatar: dataUrl }));
+                  } catch {
+                    setMessage({ type: 'error', text: 'No se pudo procesar la imagen. Probá con otra.' });
+                  } finally {
+                    setIsAvatarProcessing(false);
+                  }
+                }}
+                style={{ display: 'none' }}
+              />
             </div>
             
             <div className={styles.userInfo}>

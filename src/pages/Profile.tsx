@@ -98,9 +98,13 @@ const Profile: React.FC = () => {
           <div className={styles.profileCard}>
             <div className={styles.avatarSection}>
               <div className={styles.avatar}>
-                <span className={styles.initials}>
-                  {getInitials(user.nombres, user.apellidos)}
-                </span>
+                {user.avatar ? (
+                  <img src={user.avatar} alt="Avatar" className={styles.avatarImage} />
+                ) : (
+                  <span className={styles.initials}>
+                    {getInitials(user.nombres, user.apellidos)}
+                  </span>
+                )}
               </div>
             </div>
             

@@ -20,6 +20,7 @@ export interface ProfileMeResponse {
   email: string | null;
   telefono: string | null;
   direccion: string | null;
+  avatar: string | null;
   sexo: string | null;
   fecha_nac: string | null;
   fecha_creacion: string;
@@ -33,6 +34,7 @@ export interface ProfileMeUpdateRequest {
   apellidos: string;
   telefono: string | null;
   direccion: string | null;
+  avatar: string | null;
   puesto: string | null;
   departamento: string | null;
   fecha_ingreso: string | null;
@@ -51,4 +53,3 @@ const profileService = {
 };
 
 export default profileService;
-

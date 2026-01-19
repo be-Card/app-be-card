@@ -46,6 +46,7 @@ export interface User {
   sexo: string;
   fecha_nacimiento: string;
   telefono?: string;
+  avatar?: string | null;
   activo: boolean;
   verificado: boolean;
   fecha_creacion: string;

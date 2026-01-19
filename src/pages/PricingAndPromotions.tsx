@@ -462,14 +462,14 @@ const PricingAndPromotions: React.FC = () => {
         {/* Table */}
         <div className="bg-[#1f1f1f] border border-[#333333] rounded-lg pt-6 pb-6">
           {/* Table Header */}
-          <div className="grid grid-cols-[180px_120px_180px_240px_140px_120px_120px] items-center px-6 py-4">
+          <div className="grid grid-cols-[180px_120px_180px_240px_140px_120px_180px] items-center px-6 py-4">
             <div className="text-sm font-semibold text-white/70 font-inter">Nombre</div>
             <div className="text-sm font-semibold text-white/70 font-inter">Descuento</div>
             <div className="text-sm font-semibold text-white/70 font-inter">Alcance</div>
             <div className="text-sm font-semibold text-white/70 font-inter">Días</div>
             <div className="text-sm font-semibold text-white/70 font-inter">Horario</div>
             <div className="text-sm font-semibold text-white/70 font-inter">Estado</div>
-            <div className="text-sm font-semibold text-white/70 font-inter text-right pr-2">Acciones</div>
+            <div className="text-sm font-semibold text-white/70 font-inter text-center">Acciones</div>
           </div>
 
           <div className="h-px bg-[#333333] mx-0" />
@@ -493,7 +493,7 @@ const PricingAndPromotions: React.FC = () => {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') handleViewPromotion(promotion.id);
                 }}
-                className="grid grid-cols-[180px_120px_180px_240px_140px_120px_120px] items-center px-6 py-5 cursor-pointer hover:bg-[#171717] transition-colors"
+                className="grid grid-cols-[180px_120px_180px_240px_140px_120px_180px] items-center px-6 py-5 cursor-pointer hover:bg-[#171717] transition-colors"
               >
                 <div className="text-sm font-semibold text-white font-inter pr-3 break-words">{promotion.name}</div>
                 <div className="flex items-center">{getDiscountBadge(promotion.discount)}</div>
@@ -503,7 +503,7 @@ const PricingAndPromotions: React.FC = () => {
                 </div>
                 <div className="text-sm font-semibold text-white font-inter">{formatSchedule(promotion.startTime, promotion.endTime)}</div>
                 <div className="flex items-center">{getStatusBadge(promotion.status)}</div>
-                <div className="flex items-center justify-end gap-4 pr-2">
+                <div className="flex items-center justify-center gap-3">
                   <button
                     className="p-1 hover:opacity-70 transition-opacity"
                     onClick={(e) => {

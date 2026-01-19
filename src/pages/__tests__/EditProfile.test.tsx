@@ -30,6 +30,7 @@ describe('EditProfile', () => {
       email: 'admin@becard.com',
       telefono: '+54 11 1234 5678',
       direccion: 'Av. Corrientes 1234, CABA',
+      avatar: null,
       sexo: null,
       fecha_nac: null,
       fecha_creacion: new Date('2024-01-15').toISOString(),
@@ -50,6 +51,7 @@ describe('EditProfile', () => {
       email: 'admin@becard.com',
       telefono: '+54 11 1234 5678',
       direccion: 'Av. Corrientes 1234, CABA',
+      avatar: null,
       sexo: null,
       fecha_nac: null,
       fecha_creacion: new Date('2024-01-15').toISOString(),
@@ -82,4 +84,3 @@ describe('EditProfile', () => {
     });
   });
 });
-

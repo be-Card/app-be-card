@@ -36,6 +36,14 @@ const Register: React.FC = () => {
   const strengthLabel = passwordEval.level === 'strong' ? 'Fuerte' : passwordEval.level === 'medium' ? 'Media' : 'Débil';
   const strengthPercent = Math.max(0, Math.min(100, Math.round((passwordEval.passedCount / passwordEval.total) * 100)));
   const goToLogin = () => navigate(`/login?registered=1&email=${encodeURIComponent(successEmail || formData.email || '')}`);
+  const birthDateLimits = useMemo(() => {
+    const today = new Date();
+    const max = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    const yyyy = max.getFullYear();
+    const mm = String(max.getMonth() + 1).padStart(2, '0');
+    const dd = String(max.getDate()).padStart(2, '0');
+    return { min: '1900-01-01', max: `${yyyy}-${mm}-${dd}` };
+  }, []);
 
   useEffect(() => {
     try {
@@ -144,7 +152,8 @@ const Register: React.FC = () => {
     // Birth date validation (optional but if provided, should be valid)
     if (formData.fecha_nacimiento) {
       try {
-        const birthDate = new Date(formData.fecha_nacimiento);
+        const [year, month, day] = formData.fecha_nacimiento.split('-').map(Number);
+        const birthDate = new Date(year, (month || 1) - 1, day || 1);
         const today = new Date();
         
         if (isNaN(birthDate.getTime())) {
@@ -191,7 +200,7 @@ const Register: React.FC = () => {
         nombres: formData.nombre,
         apellidos: formData.apellido,
         sexo: formData.sexo,
-        fecha_nacimiento: formData.fecha_nacimiento ? new Date(formData.fecha_nacimiento).toISOString() : undefined,
+        fecha_nacimiento: formData.fecha_nacimiento || undefined,
         telefono: formData.telefono || undefined
       };
 
@@ -388,9 +397,10 @@ const Register: React.FC = () => {
                 value={formData.fecha_nacimiento}
                 onChange={(value) => setFormData(prev => ({ ...prev, fecha_nacimiento: value }))}
                 label="Fecha de Nacimiento"
-                placeholder="dd/mm/aaaa"
                 disabled={isLoading}
                 error={!!validationErrors.fecha_nacimiento}
+                min={birthDateLimits.min}
+                max={birthDateLimits.max}
               />
               {validationErrors.fecha_nacimiento && (
                 <span className={styles.errorText}>{validationErrors.fecha_nacimiento}</span>

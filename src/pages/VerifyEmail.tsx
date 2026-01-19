@@ -12,12 +12,16 @@ const VerifyEmail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [redirectIn, setRedirectIn] = useState<number | null>(null);
+  const [resendEmail, setResendEmail] = useState('');
+  const [resendStatus, setResendStatus] = useState<string | null>(null);
+  const [isResending, setIsResending] = useState(false);
 
   useEffect(() => {
     const run = async () => {
       setError(null);
       setSuccessMessage(null);
       setRedirectIn(null);
+      setResendStatus(null);
 
       if (!token || token.length < 10) {
         setError('Token inválido o faltante');
@@ -49,6 +53,24 @@ const VerifyEmail: React.FC = () => {
     return () => clearTimeout(t);
   }, [navigate, redirectIn]);
 
+  const handleResend = async () => {
+    setResendStatus(null);
+    const email = resendEmail.trim();
+    if (!email) {
+      setResendStatus('Ingresá tu correo para reenviar la verificación.');
+      return;
+    }
+    try {
+      setIsResending(true);
+      const res = await authService.resendVerification(email);
+      setResendStatus(res.message || 'Email de verificación reenviado.');
+    } catch (err: any) {
+      setResendStatus(err.response?.data?.detail || 'No se pudo reenviar el email.');
+    } finally {
+      setIsResending(false);
+    }
+  };
+
   return (
     <div className={styles.screen}>
       <div className={styles.content}>
@@ -67,6 +89,34 @@ const VerifyEmail: React.FC = () => {
         {successMessage && <div className={styles.success}>{successMessage}</div>}
         {successMessage && redirectIn !== null && (
           <div className={styles.info}>Redirigiendo en {redirectIn}s…</div>
+        )}
+
+        {error && (
+          <div className={styles.resendBox}>
+            <p className={styles.resendTitle}>¿Token expirado o no te llegó el email?</p>
+            <p className={styles.info}>
+              Ingresá tu correo y te reenviamos un nuevo link de verificación.
+            </p>
+            <div className={styles.resendRow}>
+              <input
+                type="email"
+                value={resendEmail}
+                onChange={(e) => setResendEmail(e.target.value)}
+                className={styles.resendInput}
+                placeholder="tu@email.com"
+                disabled={isSubmitting || isResending}
+              />
+              <button
+                type="button"
+                className={styles.resendButton}
+                onClick={handleResend}
+                disabled={isSubmitting || isResending}
+              >
+                {isResending ? 'Reenviando…' : 'Reenviar'}
+              </button>
+            </div>
+            {resendStatus && <div className={styles.info}>{resendStatus}</div>}
+          </div>
         )}
 
         <p className={styles.footer}>

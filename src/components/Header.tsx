@@ -202,7 +202,11 @@ const Header: React.FC = () => {
               setShowUserMenu(!showUserMenu);
             }}
           >
-            <span className={styles.avatarText}>{getUserInitials()}</span>
+            {user?.avatar ? (
+              <img src={user.avatar} alt="Avatar" className={styles.avatarImage} />
+            ) : (
+              <span className={styles.avatarText}>{getUserInitials()}</span>
+            )}
           </div>
 
           {showUserMenu && (
