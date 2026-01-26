@@ -20,19 +20,20 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { isAuthenticated, isLoading, isInitialized, user } = useStore() as any;
   const location = useLocation();
 
+  const adminHost = isAdminHost();
+  const clientsHost = isClientsHost();
+  const isAuthRedirectRoute = location.pathname === '/auth-redirect';
+  const isLogoutRoute = location.pathname === '/logout';
+
   // Mostrar loading mientras se inicializa la autenticación
-  if (!isInitialized) {
+  // Excepción: permitir auth-redirect aunque no esté inicializado
+  if (!isInitialized && !isAuthRedirectRoute) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
       </div>
     );
   }
-
-  const adminHost = isAdminHost();
-  const clientsHost = isClientsHost();
-  const isAuthRedirectRoute = location.pathname === '/auth-redirect';
-  const isLogoutRoute = location.pathname === '/logout';
 
   if (adminHost) {
     if (isAuthRedirectRoute || isLogoutRoute) {
@@ -50,7 +51,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   // Para rutas públicas (login, register)
   if (!requireAuth) {
-    if (isLogoutRoute) {
+    // Siempre permitir acceso a auth-redirect y logout sin verificar autenticación
+    if (isAuthRedirectRoute || isLogoutRoute) {
       return <>{children}</>;
     }
     // Si ya está autenticado, redirigir al dashboard

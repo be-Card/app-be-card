@@ -35,7 +35,10 @@ function App() {
   }, []); // Solo ejecutar una vez al montar
 
   // Mostrar loading mientras se inicializa
-  if (!isInitialized) {
+  // Excepción: si estamos en /auth-redirect, dejamos que ese componente maneje todo
+  const isAuthRedirectPath = window.location.pathname === '/auth-redirect';
+
+  if (!isInitialized && !isAuthRedirectPath) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center">
